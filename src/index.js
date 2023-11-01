@@ -35,7 +35,7 @@ async function start(){
         await mongoose.connect(mongodbRoute);
         app.listen(PORT, () => {
             console.log(`API is listening on port ${PORT}`)
-            console.log(`Main auto deploy finished (try 1)`)
+            console.log(`Main auto deploy finished (try 2)`)
         })
     }
     catch(error){
