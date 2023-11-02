@@ -44,7 +44,27 @@ const verifyUser = async (req) => {
     return finalUser;
 }
 
+const verifyQR = async (mail) => {
+    const userToValidateQR = await User.findUserByEmail(mail);
+    console.log('*********** USER ON SERVICE AFTER FIND **************')
+    console.log(userToValidateQR[0].towerAccess)
+    let towerAccessState; 
+    if(userToValidateQR[0].towerAccess === true){
+        towerAccessState = false;
+    }
+    else if(userToValidateQR[0].towerAccess === false){
+        towerAccessState = true
+    }
+    console.log('************* NEW TOWER ACCESS STATE**************')
+    console.log(towerAccessState)
+    const finalUser = await User.updateQR(towerAccessState, mail)
+    console.log('******* RETURNED USER IN QR VALIDATION SERVICE *********************')
+    console.log(finalUser)
+    return finalUser;
+}
+
 module.exports = {
     getAllUsers,
-    verifyUser
+    verifyUser,
+    verifyQR
 }

@@ -6,10 +6,10 @@ const userSchema = new Schema({
     name: String,
     email: String,
     logState: Boolean,
+    towerAccess: Boolean,
     characterMainData: Object,
     characterStats: Object,
     diseases: Object
 })
-
 
 module.exports = mongoose.model('User', userSchema);
