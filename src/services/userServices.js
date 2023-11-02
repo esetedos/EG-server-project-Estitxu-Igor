@@ -31,8 +31,9 @@ const verifyUser = async (req) => {
 
 
     if(!tokenUser[0]){
+        const rol = checkRol(decodedToken.email)
         // finalUser = await User.updateUser(decodedToken.email)
-        finalUser = await User.insertNewUser(decodedToken)
+        finalUser = await User.insertNewUser(decodedToken, rol)
     }
     else{
         // finalUser = await User.insertNewUser(decodedToken)
@@ -61,6 +62,34 @@ const verifyQR = async (mail) => {
     console.log('******* RETURNED USER IN QR VALIDATION SERVICE *********************')
     console.log(finalUser)
     return finalUser;
+}
+
+const checkRol = (email) => {
+    let rol;
+
+    if(email.includes('@ikasle.aeg.eus')){
+        rol = 'Acolito'
+    }
+    else if(email.includes('@aeg.eus')){
+        switch(email){
+            case 'ozarate@aeg.eus':
+                rol = 'Villano'
+            break;
+            case 'oskar.calvo@aeg.eus':
+                rol = 'Mortimer'
+            break;
+            case 'classcraft.daw2@aeg.eus':
+                rol = 'Istvan'
+            break;
+            case 'jacob@aeg.eus':
+                rol = 'Jacob'
+            break
+        }
+    }
+    else 
+        rol = undefined;
+    
+    return rol;
 }
 
 module.exports = {

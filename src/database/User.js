@@ -10,7 +10,7 @@ const getAllUsers = async() => {
     }
 }
 
-const insertNewUser = async (token) => {
+const insertNewUser = async (token, rol) => {
     try
     {
         console.log("***************insert new character*****************")
@@ -19,6 +19,7 @@ const insertNewUser = async (token) => {
             email: token.email,
             logState: true,
             towerAccess: false,
+            rol: role,
             characterMainData: {
                 HP: 100,
                 LvL: 1,

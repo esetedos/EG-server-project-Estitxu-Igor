@@ -5,6 +5,7 @@ const {Schema} = mongoose;
 const userSchema = new Schema({
     name: String,
     email: String,
+    rol: String,
     logState: Boolean,
     towerAccess: Boolean,
     characterMainData: Object,
