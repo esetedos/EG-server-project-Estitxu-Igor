@@ -10,7 +10,8 @@ const userSchema = new Schema({
     towerAccess: Boolean,
     characterMainData: Object,
     characterStats: Object,
-    diseases: Object
+    diseases: Object,
+    imgURL: String
 })
 
 module.exports = mongoose.model('User', userSchema);

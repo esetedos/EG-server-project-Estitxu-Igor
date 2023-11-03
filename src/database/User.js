@@ -10,10 +10,14 @@ const getAllUsers = async() => {
     }
 }
 
-const insertNewUser = async (token, rol) => {
+const insertNewUser = async (token, role) => {
     try
     {
+        
         console.log("***************insert new character*****************")
+        console.log('**********photo URL*****************')
+        console.log(token.photoURL)
+        console.log(token)
         let userToInsert = new User({
             name: token.name,
             email: token.email,
@@ -39,7 +43,8 @@ const insertNewUser = async (token, rol) => {
                 fear: false,
                 paralized: false,
                 psychosis: false
-            }
+            },
+            imgURL : token.picture
         });
         await userToInsert.save();
         return userToInsert;
