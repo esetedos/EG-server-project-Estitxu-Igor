@@ -61,8 +61,46 @@ const verifyUser = async (req, res) => {
     }
 };
 
+const verifyQR = async (req, res) => {
+    console.log('***************** VERIFY QR ROUTE CALLED **********')
+    const {body} = req;
+    console.log(body)
+    if(!body){
+        res
+           .status(400)
+           .send({
+               status: "FAILED",
+               data: {
+                   error:
+                   "error: email can't be empty",
+               },
+           });
+           return;
+   }
+   try{
+    const user = await User.verifyQR(body.email);
+        if(!user){
+            return res
+                .status(201).send({
+                    status: 'FAILED',
+                    data: {error: `User not found`}
+                })
+        }
+        else
+            res.status(201).send({ status: "OK", data: user });
+    }
+    catch(error){
+        res
+            .status(error?.status || 500)
+            .send({ status: 'FAILED',
+                    message: 'Error al realizar la petición:',
+                    data: {error: error?.message || error} });
+    }
+
+}
 
 module.exports = {
-    getAllUsers, 
-    verifyUser
+    getAllUsers,
+    verifyUser,
+    verifyQR
 }

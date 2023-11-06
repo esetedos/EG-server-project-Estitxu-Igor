@@ -10,14 +10,20 @@ const getAllUsers = async() => {
     }
 }
 
-const insertNewUser = async (token) => {
+const insertNewUser = async (token, role) => {
     try
     {
+        
         console.log("***************insert new character*****************")
+        console.log('**********photo URL*****************')
+        console.log(token.photoURL)
+        console.log(token)
         let userToInsert = new User({
             name: token.name,
             email: token.email,
             logState: true,
+            towerAccess: false,
+            rol: role,
             characterMainData: {
                 HP: 100,
                 LvL: 1,
@@ -37,7 +43,8 @@ const insertNewUser = async (token) => {
                 fear: false,
                 paralized: false,
                 psychosis: false
-            }
+            },
+            imgURL : token.picture
         });
         await userToInsert.save();
         return userToInsert;
@@ -62,7 +69,19 @@ const findUserByEmail = async (mail) => {
 const updateUser = async (mail) => {
     console.log('**********update user at log in**********************')
     try{
-        const updatedUser = await User.findOneAndUpdate( {email: mail}, {logState: true})
+        await User.updateOne({email: mail}, {logState: true});
+        const updatedUser = await User.find({email: mail});
+        return updatedUser;
+    }
+    catch (error){
+        throw error;
+    }
+}
+
+const updateQR = async (towerAccessState, mail) => {
+    try{
+        await User.updateOne({email: mail}, {towerAccess: towerAccessState});
+        const updatedUser = await User.find({email: mail});
         return updatedUser;
     }
     catch (error){
@@ -72,10 +91,11 @@ const updateUser = async (mail) => {
 
 
 
-
 module.exports = {
     getAllUsers,
-    insertNewUser,
+    insertNewUser, 
     findUserByEmail,
-    updateUser
+    insertNewUser,
+    updateUser,
+    updateQR,
 }
