@@ -47,7 +47,8 @@ const insertNewUser = async (token, role) => {
             imgURL : token.picture
         });
         await userToInsert.save();
-        return userToInsert;
+        const userArray = [userToInsert]
+        return userArray;
     }
     catch (error){
         throw error;
