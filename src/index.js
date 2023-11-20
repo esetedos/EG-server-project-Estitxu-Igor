@@ -6,10 +6,18 @@ const mongodbRoute = process.env.DATABASE_URL
 const { initializeApp } = require('firebase-admin/app');
 const admin = require('firebase-admin')
 
+const { createServer } = require("http");
+const {Server} = require('socket.io')
+
+
 
 // const userRoutes = require('./routes/UserRoutes')
 
 const app = express();
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, { /* options */ });
+
 const PORT = process.env.PORT || 3000;
 
 admin.initializeApp({
@@ -29,6 +37,10 @@ app.use(bodyParser.json());
 app.use('/api/users', userRouter)
 app.use('/api/ingredients', ingredientRouter)
 
+io.on("connection", (socket) => {
+    console.log('************ SOCKET TEST IN LOCAL ***************')
+    console.log(socket)
+  });
 
 async function start(){
     try{
@@ -43,4 +55,6 @@ async function start(){
     }
 }
 
-start();
+// start();
+
+httpServer.listen(3000);
