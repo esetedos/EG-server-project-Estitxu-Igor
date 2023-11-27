@@ -1,5 +1,4 @@
 require('dotenv').config();
-// const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const mongodbRoute = process.env.DATABASE_URL
@@ -14,10 +13,6 @@ const socketIO = require('socket.io');
 const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
-// // const userRoutes = require('./routes/UserRoutes')
-
-// const app = express();
-// const PORT = process.env.PORT || 3000;
 
 admin.initializeApp({
     credential: admin.credential.cert({
@@ -55,24 +50,6 @@ async function start(){
 }
 
 start();
-
-// mongoose.connect(mongodbRoute, { serverSelectionTimeoutMS: 30000 })
-//   .then(() => {
-//     console.log('Conexión con Mongo correcta');
-
-//     // Iniciar el servidor de Express y escuchar en el puerto definido
-//     app.listen(PORT, () => {
-//       console.log(`API is listening on port ${PORT}`);
-//     });
-//   })
-//   .catch((error) => {
-//     console.error('Error al conectar en la base de datos:', error);
-//   });
-
-
-
-//SOCKET 
-
 
 const io = socketIO(server, {
 	pingTimeout: 30000,

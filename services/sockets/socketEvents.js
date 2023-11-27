@@ -1,5 +1,6 @@
 const User = require('../../src/services/userServices')
-
+const artifactService = require('../../src/services/artifactService')
+const searchService = require('../../src/services/searchService')
 
 const getAllUsers = async (req, res) => {
   try {
@@ -72,8 +73,26 @@ events = (socket) => {
     });
 
   
+    socket.on("search", async (searchState) => {
+      try{
+        await searchService.updateStatus(searchState) //update to search new state
+        socket.emit("search", searchState)
+      }
+      catch(error){
+        const searchError = {searchError: "Server not reached."}
+        socket.emit("error", searchError)
+      }
+    })
 
+    socket.on("artifacts", async (artifactsArray) =>{
+      try{
+        const updatedArtifacts = await artifactService.updateArtifacts(artifactsArray)
+      }
+      catch (error){
 
+      }
+
+    })
   }
 
   exports.socketEvents = events;
