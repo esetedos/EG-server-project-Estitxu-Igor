@@ -4,6 +4,9 @@ const User = require('../models/userModel')
 
 const {Schema} = mongoose;
 const userModel = require('./userModel')
+const { Int32 } = require('mongodb');
+
+
 
 const artifactSchema = new Schema({
     name: String,

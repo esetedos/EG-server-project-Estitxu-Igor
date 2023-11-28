@@ -5,6 +5,7 @@ const UserDb = require('./User')
 const getAllArtifacts = async() => {
     try{
         const allArtifacts = await Artifact.find()
+
         return allArtifacts;
     }
     catch(error){
@@ -14,8 +15,8 @@ const getAllArtifacts = async() => {
 
 const findArtifactByName = async (artifactName) => {
     try{
-        const artifact = await Artifact.find({name: artifactName})   
-
+        const artifact = await Artifact.find({name: artifactName})
+        console.log(artifact);
         return artifact;
     }
     catch (error){
@@ -52,7 +53,6 @@ const updateArtifact = async (artifactName, isFound, email) => {
               updatedArtifact.depopulate('foundBy')
         }
 
-        return updatedArtifact;
     }
     catch (error){
         throw error;

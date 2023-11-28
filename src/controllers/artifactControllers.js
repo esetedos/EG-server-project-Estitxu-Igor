@@ -1,6 +1,7 @@
 const Artifact = require('../services/artifactService')
 const User = require('./../models/userModel')
 
+
 const getAllArtifacts = async(req, res) => {
     try{
         const allArtifacts = await Artifact.getAllArtifacts();
@@ -41,8 +42,6 @@ const getOneArtifact = async (req, res) => {
             status: "OK",
             data: artifact
         })
-
-        
     }
     catch (error) {
         res .status(error?.status || 500) 
