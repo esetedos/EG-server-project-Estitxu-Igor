@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-
+const User = require('../models/userModel')
 
 const {Schema} = mongoose;
 const userModel = require('./userModel')
@@ -12,7 +12,7 @@ const artifactSchema = new Schema({
     description_en: String,
     img: String,
     found: Boolean,
-    user: [{type: Schema.ObjectId, ref: "userModel"}]
+    foundBy: [{type: Schema.ObjectId, ref: "User"}]
 
 })
 
