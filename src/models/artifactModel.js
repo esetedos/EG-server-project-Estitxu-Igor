@@ -4,6 +4,11 @@ const { Int32 } = require('mongodb');
 
 
 const {Schema} = mongoose;
+const User = require('../models/userModel')
+
+const userModel = require('./userModel')
+
+
 
 const artifactSchema = new Schema({
     name: String,
@@ -11,7 +16,8 @@ const artifactSchema = new Schema({
     description_es: String,
     description_en: String,
     img: String,
-    found: Boolean
+    found: Boolean,
+    foundBy: [{type: Schema.ObjectId, ref: "User"}]
 
 })
 

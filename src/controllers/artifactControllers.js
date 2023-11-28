@@ -1,4 +1,6 @@
 const Artifact = require('../services/artifactService')
+const User = require('./../models/userModel')
+
 
 const getAllArtifacts = async(req, res) => {
     try{
@@ -56,11 +58,12 @@ const getOneArtifact = async (req, res) => {
 const updateArtifact = async(req, res) => {
     const {body} = req;
 
-    if(!body || !body.name ) {
+
+    if(!body || !body.name  || !body.email) {
         return res .status(400).send({ status: "FAILED", data: {error: "Parameter ':slot' can not be empty"}, })
     }
     try{
-        const updatedArtifact = await Artifact.updateArtifact(body.name, body.found);
+        const updatedArtifact = await Artifact.updateArtifact(body.name, body.found, body.email);
 
         if(!updatedArtifact){
             return res

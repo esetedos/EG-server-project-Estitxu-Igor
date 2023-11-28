@@ -2,21 +2,6 @@ const User = require('../../src/services/userServices')
 const artifactService = require('../../src/services/artifactService')
 const searchService = require('../../src/services/searchService')
 
-const getAllUsers = async (req, res) => {
-  try {
-    const allUsers = await User.getAllUsers();
-    // console.log(allUsers)
-    return allUsers;
-    // res.send({ status: "OK", data: allUsers });
-  } catch (error) {
-    console.log(error);
-    res.status(error?.status || 500).send({
-      status: 'FAILED',
-      message: 'Error al realizar la petición:',
-      data: { error: error?.message || error },
-    });
-  }
-};
 
 
 events = (socket) => {
@@ -92,6 +77,7 @@ events = (socket) => {
       }
 
     })
+
   }
 
   exports.socketEvents = events;

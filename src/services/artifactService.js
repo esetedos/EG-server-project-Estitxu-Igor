@@ -27,15 +27,14 @@ const getOneArtifact = async (artifactName) => {
 
 
 
-const updateArtifact = async (artifactName, isFound) => {
+const updateArtifact = async (artifactName, isFound, email) => {
 
-    const finalArtifact = await Artifact.updateArtifact(artifactName, isFound)
+    const finalArtifact = await Artifact.updateArtifact(artifactName, isFound, email)
     return finalArtifact;    
 }
-
 
 module.exports = {
     getAllArtifacts,
     getOneArtifact,
-    updateArtifact,
+    updateArtifact
 }

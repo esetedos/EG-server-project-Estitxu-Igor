@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const mongodbRoute = process.env.DATABASE_URL
@@ -13,6 +14,7 @@ const socketIO = require('socket.io');
 const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
+
 
 admin.initializeApp({
     credential: admin.credential.cert({
