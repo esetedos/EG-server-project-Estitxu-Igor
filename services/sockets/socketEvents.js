@@ -79,17 +79,16 @@ events = (socket) => {
         socket.emit("search", searchState)
       }
       catch(error){
-        const searchError = {searchError: "Server not reached."}
-        socket.emit("error", searchError)
+        socket.emit("error", error)
       }
     })
 
     socket.on("artifacts", async (artifactsArray) =>{
       try{
-        const updatedArtifacts = await artifactService.updateArtifacts(artifactsArray)
+        //UPDATE ARTIFACTS WITH JOIN HERE
       }
       catch (error){
-
+        socket.emit("error", error)
       }
 
     })

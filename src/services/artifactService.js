@@ -34,17 +34,8 @@ const updateArtifact = async (artifactName, isFound) => {
 }
 
 
-const updateArtifacts = async (artifactArray) =>{
-    const updatedArtifacts = []
-    artifactArray.forEach(element => {
-        const updatedElement = await Artifact.updateArtifact(element.name, element.found, element.who)
-        updatedElement.push(updatedArtifacts)
-    });
-    return updatedArtifacts;
-}
 module.exports = {
     getAllArtifacts,
     getOneArtifact,
     updateArtifact,
-    updateArtifacts
 }
