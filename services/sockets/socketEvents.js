@@ -60,8 +60,9 @@ events = (socket) => {
   
     socket.on("search", async (searchState) => {
       try{
+        console.log('****** SEARCH EVENT **********')
         await searchService.updateStatus(searchState) //update to search new state
-        socket.emit("search", searchState)
+        socket.broadcast.emit("search", searchState)
       }
       catch(error){
         socket.emit("error", error)
