@@ -41,7 +41,7 @@ const updateArtifact = async (artifactName, isFound, email) => {
                 "foundBy"
               );
         }
-        else{
+        else if(isFound === false){
 
             await Artifact.find({name: artifactName})
                 
