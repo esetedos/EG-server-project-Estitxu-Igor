@@ -68,12 +68,28 @@ events = (socket) => {
       }
     })
 
-    socket.on("artifacts", async (artifactsArray) =>{
+    socket.on("artifacts", async (allData) =>{
       try{
-        //UPDATE ARTIFACTS WITH JOIN HERE
+        let data = JSON.parse(allData);
+        let foundData = data.pop();
+        let artifactsArray = data;
+
+        artifactsArray.forEach(artifact => {
+          console.log("foreach")
+          if(foundData.isFound === true && artifact.name === foundData.artifactName){
+            artifactService.updateArtifact(foundData.artifactName, true, foundData.foundByEmail)
+          }
+          else{
+            artifactService.updateArtifact(artifact.name, false, null);
+          }
+
+        });
+        socket.emit("artifacts", artifactsArray)
+
       }
       catch (error){
         socket.emit("error", error)
+        console.log(error)
       }
 
     })
