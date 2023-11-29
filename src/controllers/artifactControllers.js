@@ -30,7 +30,6 @@ const getOneArtifact = async (req, res) => {
             data: {error: "Parameter ':name' can not be empty"},
         });
     }
-
     try {
         const artifact = await Artifact.getOneArtifact(artifactName);
         if(!artifact){

@@ -27,22 +27,26 @@ const findArtifactByName = async (artifactName) => {
 }
 
 const updateArtifact = async (artifactName, isFound, email) => {
+
     try{
+
         let updatedArtifact;
         if(isFound === true){
+
             const who = await UserDb.findUserByEmail(email)
 
             await Artifact.find({name: artifactName})
                 .populate("foundBy")
                 .exec();
 
+
             await Artifact.updateOne({name: artifactName}, {found: isFound, foundBy: who[0]});
             updatedArtifact = await Artifact.findOne({ name: artifactName }).populate(
                 "foundBy"
               );
+              return updatedArtifact;
         }
         else if(isFound === false){
-
             await Artifact.find({name: artifactName})
                 
             await Artifact.updateOne({name: artifactName}, {found: isFound});
@@ -52,6 +56,9 @@ const updateArtifact = async (artifactName, isFound, email) => {
               );
 
               updatedArtifact.depopulate('foundBy')
+              return updatedArtifact;
+        }
+        else{
         }
 
     }
