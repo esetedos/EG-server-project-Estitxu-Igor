@@ -2,7 +2,8 @@ const User = require('../../src/services/userServices')
 const artifactService = require('../../src/services/artifactService')
 const searchService = require('../../src/services/searchService')
 
-
+const server = require('../../index.js')
+const io = server.socketIO;
 
 events = (socket) => {
 
