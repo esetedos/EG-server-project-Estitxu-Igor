@@ -12,12 +12,12 @@ events = (socket) => {
     // TEST BROADCAST
     socket.on('test_broadcast', async (data) => {
       try {
-        socket.broadcast.emit('test_broadcast', data);
+        io.emit('test_broadcast', data);
         console.log('************ TEST BROADCAST ***********')
         console.log(data)
       } catch (error) {
         console.log(error);
-        socket.emit('test_broadcastError', error);
+        io.emit('test_broadcastError', error);
       }
     });
 
@@ -28,7 +28,7 @@ events = (socket) => {
     });
 
     //emit
-    socket.emit("hello", "world");
+    io.emit("hello", "world");
 
     //listen
     socket.on("hello", (arg) => {
@@ -49,12 +49,12 @@ events = (socket) => {
         const decodedUser = await User.verifyUser(token);
         decodedUser.push({logstate: true})
         console.log(decodedUser)
-        socket.to(socket.id).emit("logstate", decodedUser);
+        io.to(socket.id).emit("logstate", decodedUser);
 
       } catch (error) {
         console.log(error);
         console.log("there is no email or losState")
-        socket.emit('logstateError', error);
+        io.emit('logstateError', error);
       }
     });
 
@@ -63,10 +63,10 @@ events = (socket) => {
       try{
         console.log('****** SEARCH EVENT **********')
         await searchService.updateStatus(searchState) //update to search new state
-        socket.broadcast.emit("search", searchState)
+        io.emit("search", searchState)
       }
       catch(error){
-        socket.emit("error", error)
+        io.emit("error", error)
       }
     })
 
@@ -88,11 +88,11 @@ events = (socket) => {
           }
         };
         console.log('************ FINISHES FOR OF ARTIFACTS ******************')
-        socket.emit("artifacts", artifactsArray)
+        io.emit("artifacts", artifactsArray)
         console.log('************ SOCKET ARRAY EMIT DONE ******************')
       }
       catch (error){
-        socket.emit("error", error)
+        io.emit("error", error)
         console.log('************ ALL DATA ****************')
         console.log(allData)
       }
