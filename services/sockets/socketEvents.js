@@ -86,7 +86,8 @@ events = (socket) => {
             await artifactService.updateArtifact(foundData.artifactName, false, foundData.foundByEmail)
           }
         };
-        socket.emit("artifacts", artifactsArray)
+        
+        socket.broadcast.emit("artifacts", artifactsArray)
 
       }
       catch (error){
