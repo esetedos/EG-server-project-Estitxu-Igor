@@ -84,7 +84,7 @@ events = (socket) => {
             await artifactService.updateArtifact(foundData.artifactName, true, foundData.foundByEmail)
           }
           else if(foundData.foundByEmail === "reboot"){
-            await artifactService.updateArtifact(foundData.artifactName, false, foundData.foundByEmail)
+            await artifactService.updateArtifact(artifact.name, false, foundData.foundByEmail)
           }
         };
         console.log('************ FINISHES FOR OF ARTIFACTS ******************')
