@@ -71,7 +71,7 @@ events = (socket) => {
 
     socket.on("artifacts", async (allData) =>{
       try{
-        let data = JSON.parse(allData);
+        let data = allData;
         let foundData = data.pop();
         let artifactsArray = data;
 
@@ -97,7 +97,7 @@ events = (socket) => {
 
       }
       catch (error){
-        let data = JSON.parse(allData);
+        let data = allData;
         let foundData = data.pop();
         let artifactsArray = data;
         socket.emit("error", error)
