@@ -75,9 +75,15 @@ events = (socket) => {
         let foundData = data.pop();
         let artifactsArray = data;
 
+        console.log('************ DATA **************')
+        console.log(data)
+        console.log('************ FOUND DATA **************')
+        console.log(foundData)
+        console.log('************ ARTIFACTS ARRAY *********')
+        console.log(artifactsArray)
         console.log('************ ALL DATA ****************')
         console.log(allData)
-        
+
         artifactsArray.forEach(artifact => {
           if(foundData.isFound === true && artifact.name === foundData.artifactName){
             artifactService.updateArtifact(foundData.artifactName, true, foundData.foundByEmail)
@@ -93,6 +99,12 @@ events = (socket) => {
       catch (error){
         socket.emit("error", error)
         console.log(error)
+        console.log('************ DATA **************')
+        console.log(data)
+        console.log('************ FOUND DATA **************')
+        console.log(foundData)
+        console.log('************ ARTIFACTS ARRAY *********')
+        console.log(artifactsArray)
         console.log('************ ALL DATA ****************')
         console.log(allData)
       }
