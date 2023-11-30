@@ -75,40 +75,22 @@ events = (socket) => {
         let foundData = data.pop();
         let artifactsArray = data;
 
-        console.log('************ DATA **************')
-        console.log(data)
-        console.log('************ FOUND DATA **************')
-        console.log(foundData)
-        console.log('************ ARTIFACTS ARRAY *********')
-        console.log(artifactsArray)
         console.log('************ ALL DATA ****************')
         console.log(allData)
 
-        artifactsArray.forEach(artifact => {
-          if(foundData.isFound === true && artifact.name === foundData.artifactName){
-            artifactService.updateArtifact(foundData.artifactName, true, foundData.foundByEmail)
+        for(const artifact of artifactsArray){
+          if(foundData.isFound === true && artifact.name === foundData.artifactName && foundData.foundByEmail !== "reboot"){
+            await artifactService.updateArtifact(foundData.artifactName, true, foundData.foundByEmail)
           }
-          // else{
-          //   artifactService.updateArtifact(artifact.name, false, null);
-          // }
-
-        });
+          else if(foundData.foundByEmail === "reboot"){
+            await artifactService.updateArtifact(foundData.artifactName, false, foundData.foundByEmail)
+          }
+        };
         socket.emit("artifacts", artifactsArray)
 
       }
       catch (error){
-        let data = allData;
-        let foundData = data.pop();
-        let artifactsArray = data;
         socket.emit("error", error)
-        console.error('***************** ERROR IN ARTIFACT UPDATE*****************')
-        console.log(error)
-        console.log('************ DATA **************')
-        console.log(data)
-        console.log('************ FOUND DATA **************')
-        console.log(foundData)
-        console.log('************ ARTIFACTS ARRAY *********')
-        console.log(artifactsArray)
         console.log('************ ALL DATA ****************')
         console.log(allData)
       }
