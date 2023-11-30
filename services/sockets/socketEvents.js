@@ -97,6 +97,9 @@ events = (socket) => {
 
       }
       catch (error){
+        let data = JSON.parse(allData);
+        let foundData = data.pop();
+        let artifactsArray = data;
         socket.emit("error", error)
         console.log(error)
         console.log('************ DATA **************')
