@@ -62,7 +62,7 @@ events = (socket) => {
       try{
         console.log('****** SEARCH EVENT **********')
         await searchService.updateStatus(searchState) //update to search new state
-        socket.broadcast.emit("search", searchState)
+        socket.emit("search", searchState)
       }
       catch(error){
         socket.emit("error", error)
@@ -86,9 +86,9 @@ events = (socket) => {
             await artifactService.updateArtifact(foundData.artifactName, false, foundData.foundByEmail)
           }
         };
-        
-        socket.broadcast.emit("artifacts", artifactsArray)
-
+        console.log('************ FINISHES FOR OF ARTIFACTS ******************')
+        socket.emit("artifacts", artifactsArray)
+        console.log('************ SOCKET ARRAY EMIT DONE ******************')
       }
       catch (error){
         socket.emit("error", error)
