@@ -88,9 +88,9 @@ events = (socket) => {
           if(foundData.isFound === true && artifact.name === foundData.artifactName){
             artifactService.updateArtifact(foundData.artifactName, true, foundData.foundByEmail)
           }
-          else{
-            artifactService.updateArtifact(artifact.name, false, null);
-          }
+          // else{
+          //   artifactService.updateArtifact(artifact.name, false, null);
+          // }
 
         });
         socket.emit("artifacts", artifactsArray)
@@ -101,6 +101,7 @@ events = (socket) => {
         let foundData = data.pop();
         let artifactsArray = data;
         socket.emit("error", error)
+        console.error('***************** ERROR IN ARTIFACT UPDATE*****************')
         console.log(error)
         console.log('************ DATA **************')
         console.log(data)
