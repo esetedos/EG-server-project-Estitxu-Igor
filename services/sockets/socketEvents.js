@@ -75,20 +75,26 @@ events = (socket) => {
         let data = allData;
         let foundData = data.pop();
         let artifactsArray = data;
+        const responseArray = [];
 
         console.log('************ ALL DATA ****************')
         console.log(allData)
 
         for(const artifact of artifactsArray){
           if(foundData.isFound === true && artifact.name === foundData.artifactName && foundData.foundByEmail !== "reboot"){
-            await artifactService.updateArtifact(foundData.artifactName, true, foundData.foundByEmail)
+            const updatedArtifact = await artifactService.updateArtifact(foundData.artifactName, true, foundData.foundByEmail);
+            responseArray.push(updatedArtifact);
           }
           else if(foundData.foundByEmail === "reboot"){
-            await artifactService.updateArtifact(artifact.name, false, foundData.foundByEmail)
+            const updatedArtifact = await artifactService.updateArtifact(artifact.name, false, foundData.foundByEmail)
+            responseArray.push(updatedArtifact);
+          }
+          else{
+            responseArray.push(artifact);
           }
         };
         console.log('************ FINISHES FOR OF ARTIFACTS ******************')
-        io.emit("artifacts", artifactsArray)
+        io.emit("artifacts", responseArray)
         console.log('************ SOCKET ARRAY EMIT DONE ******************')
       }
       catch (error){
