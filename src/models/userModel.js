@@ -13,8 +13,7 @@ const userSchema = new Schema({
     characterStats: Object,
     diseases: Object,
     imgURL: String,
-    lat: Double,
-    lon: Double
+
 })
 
 module.exports = mongoose.model('User', userSchema);
