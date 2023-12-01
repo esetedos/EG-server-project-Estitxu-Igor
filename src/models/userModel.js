@@ -1,4 +1,4 @@
-const { Decimal128 } = require('mongodb');
+const { Decimal128, Double } = require('mongodb');
 const mongoose = require('mongoose');
 
 const {Schema} = mongoose;
@@ -13,8 +13,8 @@ const userSchema = new Schema({
     characterStats: Object,
     diseases: Object,
     imgURL: String,
-    lat: Decimal128,
-    lon: Decimal128
+    lat: Double,
+    lon: Double
 })
 
 module.exports = mongoose.model('User', userSchema);
