@@ -117,7 +117,6 @@ events = (socket) => {
           
         });
         console.log('******************* COORDS RETURNING NEW USER LIST ************')
-        console.log(newUserList)
         io.emit("userList", newUserList)
       }
       catch(error){
