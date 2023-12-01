@@ -110,8 +110,8 @@ events = (socket) => {
         const newUserList = []
         data.userArray.forEach(element => {
           if(element.name === data.name){
-            element.lat = data.lat;
-            element.lon = data.lon;
+            element.latitude = data.lat;
+            element.longitude = data.lon;
           }
           newUserList.push(element)
           
