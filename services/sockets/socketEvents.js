@@ -105,6 +105,27 @@ events = (socket) => {
 
     })
 
+    socket.on("coords", async(data) =>{
+      try{
+        const newUserList = []
+        data.userArray.forEach(element => {
+          if(element.name === data.name){
+            element.lat = data.lat;
+            element.lon = data.lon;
+          }
+          newUserList.push(element)
+          
+        });
+
+        io.emit("userList", newUserList)
+      }
+      catch(error){
+        io.emit("error", error)
+      }
+
+    })
+    
+    
   }
 
   exports.socketEvents = events;
