@@ -131,7 +131,7 @@ events = (socket) => {
     //penalizaciones (crono)
 
     cron.schedule('*/2 * * * *', () => { //cada 2 min.
-      const penalty = 10;
+      const penalty = -10;
       io.emit("stamina", penalty)
     });
 
