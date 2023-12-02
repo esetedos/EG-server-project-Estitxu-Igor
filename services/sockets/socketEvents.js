@@ -107,6 +107,27 @@ events = (socket) => {
 
     })
 
+    socket.on("coords", async(data) =>{
+      try{
+        const newUserList = []
+        data.userArray.forEach(element => {
+          if(element.name === data.name){
+            element.latitude = data.lat;
+            element.longitude = data.lon;
+          }
+          newUserList.push(element)
+          
+        });
+        console.log('******************* COORDS RETURNING NEW USER LIST ************')
+        io.emit("userList", newUserList)
+      }
+      catch(error){
+        io.emit("error", error)
+      }
+
+    })
+    
+    
     //penalizaciones (crono)
 
     cron.schedule('*/2 * * * *', () => { //cada 2 min.
