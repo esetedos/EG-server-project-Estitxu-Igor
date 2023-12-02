@@ -5,6 +5,8 @@ const searchService = require('../../src/services/searchService')
 const server = require('../../index.js')
 const io = server.socketIO;
 
+const cron = require('node-cron');
+
 events = (socket) => {
 
     console.log({ Clientsocket: socket.id });
@@ -104,6 +106,13 @@ events = (socket) => {
       }
 
     })
+
+    //penalizaciones (crono)
+
+    cron.schedule('*/2 * * * *', () => { //cada 2 min.
+      const penalty = 10;
+      io.emit("stamina", penalty)
+    });
 
   }
 
