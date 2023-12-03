@@ -99,8 +99,36 @@ const verifyQR = async (req, res) => {
 
 }
 
+const updateUser = async(req, res) => {
+    const {body} = req;
+
+
+    if(!body || !body.email || !body.data || !body.value) {
+        return res .status(400).send({ status: "FAILED", data: {error: "Parameters can not be empty"}, })
+    }
+    try{
+        const updatedUser = await User.updatedUser(body.email, body.data, body.value);
+
+        if(!updatedUser){
+            return res
+            .status(404)
+            .send({ status: "FAILED",
+            data: { error: `can't find user with the email '${body.email}`} });
+        }
+
+        res.send({ status: "OK", data: updatedUser });
+    } catch (error) {
+        res
+            .status(error?.status || 500)
+            .send({ status: "FAILED",
+                message: "Error al realizar la petición:",
+                data: { error: error?.message || error} });
+    }
+};
+
 module.exports = {
     getAllUsers,
     verifyUser,
-    verifyQR
+    verifyQR,
+    updateUser,
 }

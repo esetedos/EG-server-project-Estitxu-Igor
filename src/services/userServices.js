@@ -92,8 +92,15 @@ const checkRol = (email) => {
     return rol;
 }
 
+const updatedUser = async (userEmail, dataName, value) => {
+
+    const finalUser = await User.updatedUserAtribute(userEmail, dataName, value)
+    return finalUser;    
+}
+
 module.exports = {
     getAllUsers,
     verifyUser,
-    verifyQR
+    verifyQR,
+    updatedUser,
 }

@@ -130,10 +130,22 @@ events = (socket) => {
     
     //penalizaciones (crono)
 
-    cron.schedule('*/2 * * * *', () => { //cada 2 min.
+    const myCronJob = async () => {
+      const data = await User.getAllUsers();
+      console.log(data.data)
+      const userList = data.data;
+
+      userList.forEach((user) => {
+        if(user.rol == "Acolito"){
+          
+        }
+      })
+
       const penalty = -10;
-      io.emit("stamina", penalty)
-    });
+      io.emit("stamina", penalty);
+    };
+    
+    cron.schedule('*/2 * * * *', myCronJob); //cada min
 
   }
 

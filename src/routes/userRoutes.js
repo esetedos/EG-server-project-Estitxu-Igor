@@ -10,4 +10,7 @@ router.post("/", userController.verifyUser)
 
 router.post("/verifyQR", userController.verifyQR)
 
+router.patch("/", userController.updateUser)
+
+
 module.exports = router;

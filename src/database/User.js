@@ -90,6 +90,28 @@ const updateQR = async (towerAccessState, mail) => {
     }
 }
 
+const updatedUserAtribute = async (userEmail, dataName, value) => {
+
+    try{
+
+
+        // if(dataName === "")
+        const updateObj = {};
+        updateObj[dataName] = value;
+
+        await User.updateOne({email: userEmail}, { $set: updateObj });
+        const updatedUser = await User.find({email: userEmail});
+        return updatedUser;
+
+
+          
+
+    }
+    catch (error){
+        throw error;
+    }
+}
+
 
 
 module.exports = {
@@ -99,4 +121,5 @@ module.exports = {
     insertNewUser,
     updateUser,
     updateQR,
+    updatedUserAtribute,
 }
