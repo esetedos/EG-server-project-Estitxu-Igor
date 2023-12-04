@@ -135,7 +135,7 @@ events = (socket) => {
       const userList = await userService.getAllUsers();
       const newUserList = [];
 
-      userList.forEach(async (user) => {
+      for(const user of userList){
         if(user.rol == "Acolito"){ //if <0, tener en cuenta
           const newStamina = user.characterStats.stamina + penaltyStamina;
           await userService.updatedUser(user.email, "characterStats.stamina", newStamina)
@@ -149,11 +149,15 @@ events = (socket) => {
 
         }
         newUserList.push(user);
-      })
+      }
 
       // const newUserList = await User.getAllUsers();
 
       // const penalty = -10;
+      console.log('******************* PREVIOUS USER LIST ********************************')
+      console.log(userList)
+      console.log('******************* NEW USER LIST WITH NEW STATS****************************')
+      console.log(newUserList)
       io.emit("userList", newUserList);
     };
     
