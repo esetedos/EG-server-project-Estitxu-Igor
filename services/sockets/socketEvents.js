@@ -169,7 +169,7 @@ events = (socket) => {
       io.emit("userList", newUserList);
     };
     
-    cron.schedule('*/1 * * * *', myCronJob); //cada 2min
+    // cron.schedule('*/1 * * * *', myCronJob); //cada 2min
 
   }
 
