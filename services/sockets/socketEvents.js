@@ -148,7 +148,7 @@ events = (socket) => {
           console.log("user changed");
 
         }
-        userList.push(user);
+        newUserList.push(user);
       })
 
       // const newUserList = await User.getAllUsers();
