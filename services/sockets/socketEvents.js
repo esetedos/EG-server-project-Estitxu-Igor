@@ -164,10 +164,10 @@ events = (socket) => {
       // const newUserList = await User.getAllUsers();
 
       // const penalty = -10;
-      console.log('******************* PREVIOUS USER LIST ********************************')
-      console.log(userList)
-      console.log('*************** NEW USER LIST WITH NEW STATS **************************')
-      console.log(newUserList)
+      console.log('******************* CRONE FUNCTION TRIGGERED ********************************')
+      // console.log(userList)
+      // console.log('*************** NEW USER LIST WITH NEW STATS **************************')
+      // console.log(newUserList)
       io.emit("userList", newUserList);
     };
     
