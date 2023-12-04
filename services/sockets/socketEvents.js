@@ -130,6 +130,7 @@ events = (socket) => {
     cron.schedule('*/2 * * * *', myCronJob); //cada 2min
 
     socket.on("restoreStamina", async(userEmail) =>{
+      console.log(userEmail)
       try{
         const restoreStamina = 21;
         const restoreAg = 10;
@@ -156,7 +157,8 @@ events = (socket) => {
 
             await userService.updatedUser(userEmail, "characterStats.agility", newAgility);
 
-            await userService.updatedUser(userEmail, "characterStats.strength", newStrength);
+            const strength = await userService.updatedUser(userEmail, "characterStats.strength", newStrength);
+            console.log(strength)
           }
           newUserList.push(user);
         }
