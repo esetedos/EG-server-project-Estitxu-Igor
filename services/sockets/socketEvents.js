@@ -173,7 +173,7 @@ events = (socket) => {
     
     // cron.schedule('*/1 * * * *', myCronJob); //cada 2min
 
-    schedule.scheduleJob('*/1 * * * *', myCronJob())
+    schedule.scheduleJob('*/1 * * * *', myCronJob)
 
   }
 
