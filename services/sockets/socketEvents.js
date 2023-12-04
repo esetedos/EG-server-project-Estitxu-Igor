@@ -131,23 +131,35 @@ events = (socket) => {
     //penalizaciones (crono)
 
     const myCronJob = async () => {
-      const penalty = -10;
+      const penaltyStamina = -10;
+      const penaltyAg = -5;
+      const penaltyStr = -2;
       const userList = await User.getAllUsers();
+      const newUserList = [];
 
       userList.forEach(async (user) => {
-        if(user.rol == "Acolito"){
-          const newStamina = user.characterStats.stamina + penalty;
+        // if(user.rol == "Acolito"){ //if <0, tener en cuenta
+          const newStamina = user.characterStats.stamina + penaltyStamina;
           await User.updatedUserAtribute(user.email, "characterStats.stamina", newStamina)
-        }
+
+          const newAgility = user.characterStats.agility + penaltyAg;
+          await User.updatedUserAtribute(user.email, "characterStats.agility", newAgility)
+
+          const newStrength = user.characterStats.strength + penaltyStr;
+          await User.updatedUserAtribute(user.email, "characterStats.strength", newStrength)
+          console.log("user changed");
+
+        // }
+        userList.push(user);
       })
 
-      const newUserList = await User.getAllUsers();
+      // const newUserList = await User.getAllUsers();
 
       // const penalty = -10;
       io.emit("userList", newUserList);
     };
     
-    cron.schedule('*/2 * * * *', myCronJob); //cada 2min
+    cron.schedule('*/1 * * * *', myCronJob); //cada 2min
 
   }
 
