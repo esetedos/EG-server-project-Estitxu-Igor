@@ -127,57 +127,46 @@ events = (socket) => {
 
     })
     
-    //penalizaciones (crono)
-
-    const myCronJob = async () => {
-      const penaltyStamina = -10;
-      const penaltyAg = -5;
-      const penaltyStr = -2;
-      const userList = await userService.getAllUsers();
-      const newUserList = [];
-
-      for(const user of userList){
-        if(user.rol == "Acolito"){ //if <0, tener en cuenta
-          let newStamina = user.characterStats.stamina + penaltyStamina;
-          let newAgility = user.characterStats.agility + penaltyAg;
-          let newStrength = user.characterStats.strength + penaltyStr;
-
-          if(newStamina < 0)
-            newStamina = 0
-
-          if(newAgility < 0)
-            newAgility = 0
-
-          if(newStrength < 0)
-            newStrength = 0
-
-          await userService.updatedUser(user.email, "characterStats.stamina", newStamina)
-
-          await userService.updatedUser(user.email, "characterStats.agility", newAgility)
-
-          await userService.updatedUser(user.email, "characterStats.strength", newStrength)
-
-        }
-        newUserList.push(user);
-      }
-
-      // const newUserList = await User.getAllUsers();
-
-      // const penalty = -10;
-      console.log('******************* CRONE FUNCTION TRIGGERED ********************************')
-      // console.log(userList)
-      // console.log('*************** NEW USER LIST WITH NEW STATS **************************')
-      // console.log(newUserList)
-      io.emit("userList", newUserList);
-    };
-    
-    // cron.schedule('*/1 * * * *', myCronJob); //cada 2min
-
-    schedule.scheduleJob('*/1 * * * *', myCronJob)
+    cron.schedule('*/2 * * * *', myCronJob); //cada 2min
 
   }
 
   exports.socketEvents = events;
 
 
+    //****************************penalizaciones (crono)*****************************************
 
+  const myCronJob = async () => {
+    const penaltyStamina = -10;
+    const penaltyAg = -5;
+    const penaltyStr = -2;
+    const userList = await userService.getAllUsers();
+    const newUserList = [];
+
+    for(const user of userList){
+      if(user.rol == "Acolito"){ 
+        let newStamina = user.characterStats.stamina + penaltyStamina;
+        let newAgility = user.characterStats.agility + penaltyAg;
+        let newStrength = user.characterStats.strength + penaltyStr;
+
+        if(newStamina < 0)
+          newStamina = 0
+
+        if(newAgility < 0)
+          newAgility = 0
+
+        if(newStrength < 0)
+          newStrength = 0
+
+        await userService.updatedUser(user.email, "characterStats.stamina", newStamina)
+
+        await userService.updatedUser(user.email, "characterStats.agility", newAgility)
+
+        await userService.updatedUser(user.email, "characterStats.strength", newStrength)
+
+      }
+      newUserList.push(user);
+    }
+
+    io.emit("userList", newUserList);
+  };
