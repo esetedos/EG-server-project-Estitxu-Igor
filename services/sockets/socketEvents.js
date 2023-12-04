@@ -125,7 +125,6 @@ events = (socket) => {
 
     })
     
-    
     //penalizaciones (crono)
 
     const myCronJob = async () => {
@@ -137,15 +136,24 @@ events = (socket) => {
 
       for(const user of userList){
         if(user.rol == "Acolito"){ //if <0, tener en cuenta
-          const newStamina = user.characterStats.stamina + penaltyStamina;
+          let newStamina = user.characterStats.stamina + penaltyStamina;
+          let newAgility = user.characterStats.agility + penaltyAg;
+          let newStrength = user.characterStats.strength + penaltyStr;
+
+          if(newStamina < 0)
+            newStamina = 0
+
+          if(newAgility < 0)
+            newAgility = 0
+
+          if(newStrength < 0)
+            newStrength = 0
+
           await userService.updatedUser(user.email, "characterStats.stamina", newStamina)
 
-          const newAgility = user.characterStats.agility + penaltyAg;
           await userService.updatedUser(user.email, "characterStats.agility", newAgility)
 
-          const newStrength = user.characterStats.strength + penaltyStr;
           await userService.updatedUser(user.email, "characterStats.strength", newStrength)
-          console.log("user changed");
 
         }
         newUserList.push(user);
@@ -156,7 +164,7 @@ events = (socket) => {
       // const penalty = -10;
       console.log('******************* PREVIOUS USER LIST ********************************')
       console.log(userList)
-      console.log('******************* NEW USER LIST WITH NEW STATS****************************')
+      console.log('*************** NEW USER LIST WITH NEW STATS **************************')
       console.log(newUserList)
       io.emit("userList", newUserList);
     };
