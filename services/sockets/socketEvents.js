@@ -1,4 +1,4 @@
-const User = require('../../src/services/userServices')
+const userService = require('../../src/services/userServices')
 const artifactService = require('../../src/services/artifactService')
 const searchService = require('../../src/services/searchService')
 
@@ -43,12 +43,10 @@ events = (socket) => {
    
     socket.on("logstate", async (arg) => {
       try {
-        // const k = await User.getAllUsers();
-        // console.log(k);
         console.log(arg); // id and true/false
         token.token  =arg;
         console.log(token)
-        const decodedUser = await User.verifyUser(token);
+        const decodedUser = await userService.verifyUser(token);
         decodedUser.push({logstate: true})
         console.log(decodedUser)
         io.to(socket.id).emit("logstate", decodedUser);
@@ -134,22 +132,22 @@ events = (socket) => {
       const penaltyStamina = -10;
       const penaltyAg = -5;
       const penaltyStr = -2;
-      const userList = await User.getAllUsers();
+      const userList = await userService.getAllUsers();
       const newUserList = [];
 
       userList.forEach(async (user) => {
-        // if(user.rol == "Acolito"){ //if <0, tener en cuenta
+        if(user.rol == "Acolito"){ //if <0, tener en cuenta
           const newStamina = user.characterStats.stamina + penaltyStamina;
-          await User.updatedUserAtribute(user.email, "characterStats.stamina", newStamina)
+          await userService.updatedUser(user.email, "characterStats.stamina", newStamina)
 
           const newAgility = user.characterStats.agility + penaltyAg;
-          await User.updatedUserAtribute(user.email, "characterStats.agility", newAgility)
+          await userService.updatedUser(user.email, "characterStats.agility", newAgility)
 
           const newStrength = user.characterStats.strength + penaltyStr;
-          await User.updatedUserAtribute(user.email, "characterStats.strength", newStrength)
+          await userService.updatedUser(user.email, "characterStats.strength", newStrength)
           console.log("user changed");
 
-        // }
+        }
         userList.push(user);
       })
 
