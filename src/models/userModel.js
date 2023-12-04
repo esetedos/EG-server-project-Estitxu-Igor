@@ -11,8 +11,11 @@ const userSchema = new Schema({
     towerAccess: Boolean,
     characterMainData: Object,
     characterStats: Object,
+    characterMaxStats: Object,
     diseases: Object,
     imgURL: String,
+    latitude: Double,
+    longitude: Double
 
 })
 

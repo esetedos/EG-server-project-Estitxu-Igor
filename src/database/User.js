@@ -13,6 +13,9 @@ const getAllUsers = async() => {
 const insertNewUser = async (token, role) => {
     try
     {
+        const strengthStart     = Math.floor(Math.random() * (100 - 20 + 1) + 20);
+        const agilityStart      = Math.floor(Math.random() * (100 - 20 + 1) + 20);
+        const inteligenceStart  = Math.floor(Math.random() * (100 - 20 + 1) + 20);
         
         console.log("***************insert new character*****************")
         console.log('**********photo URL*****************')
@@ -31,10 +34,15 @@ const insertNewUser = async (token, role) => {
             },
             characterStats: {
                 stamina: 100,
-                strength: 10,
-                resistance: 10,
-                agility: 10,
-                intelligence: 10 
+                strength: strengthStart,
+                agility: agilityStart,
+                intelligence: inteligenceStart 
+            },
+            characterMaxStats: {
+                maxStamina: 100,
+                maxStrength: strengthStart,
+                maxAgility: agilityStart,
+                maxIntelligence: inteligenceStart 
             },
             diseases: {
                 hunger: false,
