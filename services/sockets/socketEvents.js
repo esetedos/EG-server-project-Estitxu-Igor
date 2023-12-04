@@ -129,6 +129,60 @@ events = (socket) => {
     
     cron.schedule('*/2 * * * *', myCronJob); //cada 2min
 
+    socket.on("restoreStamina", async(data) =>{
+      try{
+        const restoreStamina = 21;
+        const restoreAg = 10;
+        const restoreStr = 4;
+        const userList = await userService.getAllUsers();
+        const newUserList = [];
+
+        for(const user of userList){
+          if(user.rol == "Acolito"){ 
+            let newStamina = user.characterStats.stamina + restoreStamina;
+            let newAgility = user.characterStats.agility + restoreAg;
+            let newStrength = user.characterStats.strength + restoreStr;
+
+            if(newStamina < 0)
+              newStamina = 0
+
+            if(newAgility < 0)
+              newAgility = 0
+
+            if(newStrength < 0)
+              newStrength = 0
+
+            await userService.updatedUser(user.email, "characterStats.stamina", newStamina)
+
+            await userService.updatedUser(user.email, "characterStats.agility", newAgility)
+
+            await userService.updatedUser(user.email, "characterStats.strength", newStrength)
+
+          }
+          newUserList.push(user);
+    }
+
+    io.emit("userList", newUserList);
+      }
+      catch(error){
+        io.emit("error", error)
+      }
+
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   exports.socketEvents = events;
