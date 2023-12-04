@@ -7,6 +7,8 @@ const io = server.socketIO;
 
 const cron = require('node-cron');
 
+const schedule = require('node-schedule');
+
 events = (socket) => {
 
     console.log({ Clientsocket: socket.id });
@@ -170,6 +172,8 @@ events = (socket) => {
     };
     
     // cron.schedule('*/1 * * * *', myCronJob); //cada 2min
+
+    schedule.scheduleJob('*/1 * * * *', myCronJob())
 
   }
 

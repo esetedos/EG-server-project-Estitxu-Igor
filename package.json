@@ -19,6 +19,7 @@
     "firebase-admin": "^11.11.0",
     "mongoose": "^8.0.0",
     "node-cron": "^3.0.3",
+    "node-schedule": "^2.1.1",
     "socket.io": "^4.7.2",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.4.0"
   },
