@@ -13,8 +13,8 @@ const getAllUsers = async() => {
 const insertNewUser = async (token, role) => {
     try
     {
-        const strengthStart     = Math.floor(Math.random() * (100 - 20 + 1) + 20);
-        const agilityStart      = Math.floor(Math.random() * (100 - 20 + 1) + 20);
+        const strengthStart     = Math.floor(Math.random() * (100 - 73 + 1) + 73);
+        const agilityStart      = Math.floor(Math.random() * (100 - 24 + 1) + 24);
         const inteligenceStart  = Math.floor(Math.random() * (100 - 20 + 1) + 20);
         
         console.log("***************insert new character*****************")
@@ -52,7 +52,9 @@ const insertNewUser = async (token, role) => {
                 paralized: false,
                 psychosis: false
             },
-            imgURL : token.picture
+            imgURL : token.picture,
+            latitude: 0,
+            longitude: 0,
         });
         await userToInsert.save();
         const userArray = [userToInsert]
