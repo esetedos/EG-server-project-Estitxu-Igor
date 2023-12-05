@@ -160,7 +160,7 @@ events = (socket) => {
             const strength = await userService.updatedUser(userEmail, "characterStats.strength", newStrength);
             console.log(strength)
           }
-          io.emit("uploadedUser", user);
+          io.emit("stamina", user);
 
           newUserList.push(user);
         }
