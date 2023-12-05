@@ -54,7 +54,7 @@ const insertNewUser = async (token, role) => {
             },
             imgURL : token.picture,
             latitude: 0,
-            longitude: 0,
+            longitude: 0
         });
         await userToInsert.save();
         const userArray = [userToInsert]
