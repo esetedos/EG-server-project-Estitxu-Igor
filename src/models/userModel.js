@@ -1,4 +1,4 @@
-const { Decimal128, Double } = require('mongodb');
+
 const mongoose = require('mongoose');
 
 const {Schema} = mongoose;
@@ -14,8 +14,8 @@ const userSchema = new Schema({
     characterMaxStats: Object,
     diseases: Object,
     imgURL: String,
-    latitude: Double,
-    longitude: Double
+    latitude: Number,
+    longitude: Number
 
 })
 
