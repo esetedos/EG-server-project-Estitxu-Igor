@@ -222,6 +222,6 @@ events = (socket) => {
       }
       newUserList.push(user);
     }
-
+    console.log('*************** CRON TRIGGERED ***********')
     io.emit("userList", newUserList);
   };
