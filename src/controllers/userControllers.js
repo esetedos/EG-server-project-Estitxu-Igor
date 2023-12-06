@@ -126,9 +126,42 @@ const updateUser = async(req, res) => {
     }
 };
 
+
+const getOneUser = async (req, res) => {
+    const {body} = req;
+
+    if(!body){
+        return res.status(400)
+        .send({
+            status: "FAILED",
+            data: {error: "Parameter 'email' can not be empty"},
+        });
+    }
+    try {
+        const user = await User.getOneUser(body.email);
+        if(!body.email){
+            return res .status(404)
+            .send({ status: "FAILED",
+                data: { error: `Cant find artifact with the email '${body.email}'`} });
+        }
+        res.send({
+            status: "OK",
+            data: user
+        })
+    }
+    catch (error) {
+        res .status(error?.status || 500) 
+        .send({status: "FAILED",
+    message: "Error al realizar la petición:",
+        data: { error: error?.message || error}});
+    }
+};
+
+
 module.exports = {
     getAllUsers,
     verifyUser,
     verifyQR,
     updateUser,
+    getOneUser,
 }

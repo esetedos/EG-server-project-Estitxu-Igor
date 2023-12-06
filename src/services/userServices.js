@@ -118,10 +118,21 @@ const fullRestoreUser = async (userEmail) => {
     return updatedUser
 }
 
+const getOneUser = async (email) => {
+    try{
+        const user = userDB.findUserByEmail(email);
+        return user;
+    }
+    catch (error){
+        throw error;
+    }
+}
+
 module.exports = {
     getAllUsers,
     verifyUser,
     verifyQR,
     updatedUser,
-    fullRestoreUser
+    fullRestoreUser,
+    getOneUser,
 }

@@ -124,6 +124,8 @@ const updatedUserAtribute = async (userEmail, dataName, value) => {
 
 
 
+
+
 module.exports = {
     getAllUsers,
     insertNewUser, 
