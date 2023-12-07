@@ -104,9 +104,9 @@ const fullRestoreUser = async (userEmail) => {
 
     console.log(previousUser)
 
-    const maxStrength       = previousUser.characterMaxStats.maxStrength
-    const maxAgility        = previousUser.characterMaxStats.maxAgility
-    const maxIntelligence   = previousUser.characterMaxStats.maxIntelligence
+    const maxStrength       = previousUser[0].characterMaxStats.maxStrength
+    const maxAgility        = previousUser[0].characterMaxStats.maxAgility
+    const maxIntelligence   = previousUser[0].characterMaxStats.maxIntelligence
 
     const newCharacterStats = {
         stamina: 100,
@@ -117,7 +117,7 @@ const fullRestoreUser = async (userEmail) => {
     
     const updatedUser = await updatedUser(userEmail, dataName, newCharacterStats)
 
-    return updatedUser
+    return updatedUser[0]
 }
 
 const getOneUser = async (email) => {
