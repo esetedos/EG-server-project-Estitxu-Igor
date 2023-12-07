@@ -183,17 +183,14 @@ events = (socket) => {
 
     })
 
+    socket.on("fullyRestore", async(userEmail) => {
+      //Wait time needed 
+      
+      const updatedUser = await userService.fullRestoreUser(userEmail)
 
+      io.emit("userRecovery", updatedUser)
 
-
-
-
-
-
-
-
-
-
+    })
 
 
   }
