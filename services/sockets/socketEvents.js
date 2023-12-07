@@ -159,10 +159,18 @@ events = (socket) => {
 
             const strength = await userService.updatedUser(userEmail, "characterStats.strength", newStrength);
             console.log(strength)
-          }
-          io.emit("stamina", user);
 
-          newUserList.push(user);
+            const newUser = await userService.getOneUser(user.email)
+
+            console.log("*********************RESTORED NEW USER*********************")
+            console.log(newUser)
+            newUserList.push(newUser[0]);
+
+          }
+          else{
+            newUserList.push(user);
+          }
+
         }
 
         io.emit("userList", newUserList);
@@ -170,6 +178,7 @@ events = (socket) => {
       }
       catch(error){
         io.emit("error", error);
+        console.log("*****************userList no se actualiza correctamente **************************")
       }
 
     })
@@ -222,8 +231,14 @@ events = (socket) => {
 
         await userService.updatedUser(user.email, "characterStats.strength", newStrength)
 
+        const newUser = await userService.getOneUser(user.email)
+
+        newUserList.push(newUser[0]);
+
       }
-      newUserList.push(user);
+      else{
+        newUserList.push(user);
+      }
     }
     console.log('*************** CRON TRIGGERED ***********')
     io.emit("userList", newUserList);
