@@ -102,9 +102,9 @@ const fullRestoreUser = async (userEmail) => {
     const previousUser = await userDB.findUserByEmail(userEmail);
     const dataName = "characterStats"
 
-    const maxStrength       = previousUser.characterMaxStats.strength
-    const maxAgility        = previousUser.characterMaxStats.agility
-    const maxIntelligence   = previousUser.characterMaxStats.intelligence
+    const maxStrength       = previousUser.characterMaxStats.maxStrength
+    const maxAgility        = previousUser.characterMaxStats.maxAgility
+    const maxIntelligence   = previousUser.characterMaxStats.maxIntelligence
 
     const newCharacterStats = {
         stamina: 100,
