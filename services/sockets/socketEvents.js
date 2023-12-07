@@ -187,7 +187,8 @@ events = (socket) => {
       //Wait time needed 
       
       const updatedUser = await userService.fullRestoreUser(userEmail)
-
+      console.log('*********************user recovery updated user *********************')
+      console.log(updatedUser)
       io.emit("userRecovery", updatedUser)
 
     })
