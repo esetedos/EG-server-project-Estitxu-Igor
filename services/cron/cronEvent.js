@@ -37,4 +37,4 @@ const myCronJob = async () => {
     io.emit("userList", newUserList);
   };
 
-  export default myCronJob
+  module.exports = myCronJob
