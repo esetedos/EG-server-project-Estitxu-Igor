@@ -110,8 +110,6 @@ events = (socket) => {
 
     socket.on("coords", async(data) =>{
       try{
-        console.log('*********** DATA RECEIVED **********')
-        console.log(data)
         const newUserList = []
         data.userArray.forEach(element => {
           if(element.name === data.name){
@@ -122,7 +120,7 @@ events = (socket) => {
           
         });
         console.log('******************* COORDS RETURNING NEW USER LIST ************')
-        // io.emit("userList", newUserList)
+        io.emit("userList", newUserList)
       }
       catch(error){
         io.emit("error", error)
