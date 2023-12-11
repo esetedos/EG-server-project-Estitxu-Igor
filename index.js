@@ -52,36 +52,7 @@ async function start(){
         });
         console.log('Conexión con Mongo correcta')
 
-        cron.schedule('*/30 * * * * *', async () => {
-            const penaltyStamina = -10;
-            const penaltyAg = -5;
-            const penaltyStr = -2;
-            const userList = await userService.getAllUsers();
-            const newUserList = [];
-        
-            for(const user of userList){
-              if(user.rol == "Acolito"){ 
-        
-                const newStats = {
-                    stamina: user.characterStats.stamina + penaltyStamina < 1?0:user.characterStats.stamina + penaltyStamina,
-                    agility: user.characterStats.agility + penaltyAg <1?0:user.characterStats.agility + penaltyAg,
-                    strength: user.characterStats.strength + penaltyStr <1?0:user.characterStats.strength + penaltyStr,
-                    intelligence: user.characterStats.intelligence
-        
-                }
-        
-                const newUser = await userService.updatedUser(user.email, "characterStats", newStats)
-        
-                newUserList.push(newUser[0]);
-        
-              }
-              else{
-                newUserList.push(user);
-              }
-            }
-            console.log('*************** CRON TRIGGERED ***********')
-            io.emit("userList", newUserList);
-          }); 
+        cron.schedule('*/30 * * * * *', myCronJob)
         cron.schedule('*/30 * * * * *', () => {
             console.log('Second cron triggered')
         });
