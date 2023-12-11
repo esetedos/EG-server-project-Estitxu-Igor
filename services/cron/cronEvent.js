@@ -1,7 +1,7 @@
 const userService = require('../../src/services/userServices')
 
 const server = require('../../index.js')
-const io = server.socketIO;
+const io = require('../sockets/socketMain')
 
 
 const myCronJob = async () => {

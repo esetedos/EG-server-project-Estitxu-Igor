@@ -1,7 +1,7 @@
 const userService = require('../../src/services/userServices')
 const artifactService = require('../../src/services/artifactService')
 const searchService = require('../../src/services/searchService')
-const myCronJob = require('../cron/cronEvent')
+
 
 const server = require('../../index.js')
 const io = server.socketIO;
@@ -11,8 +11,6 @@ events = (socket) => {
 
     console.log({ Clientsocket: socket.id });
     socket.emit("new_user", socket.id);
-
-    // cron.schedule('*/2 * * * *', myCronJob); //cada 2min
 
     // TEST BROADCAST
     socket.on('test_broadcast', async (data) => {
