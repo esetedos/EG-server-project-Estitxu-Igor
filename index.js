@@ -16,7 +16,7 @@ const app = express();
 const server = http.createServer(app);
 
 const cron = require('node-cron');
-const schedule = require('node-schedule');
+// const schedule = require('node-schedule');
 
 // const myCronJob = require('./services/cron/cronEvent')
 
@@ -50,7 +50,10 @@ async function start(){
         });
         console.log('Conexión con Mongo correcta')
 
-        cron.schedule('*/2 * * * *', myCronJob); //cada 2min
+        cron.schedule('*/30 * * * * *', myCronJob); //cada 2min
+        cron.schedule('*/30 * * * * *', () => {
+            console.log('Second cron triggered')
+        });
     }
     catch(error){
         console.log('Error al conectar en la base de datos')
