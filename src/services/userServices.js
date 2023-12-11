@@ -117,9 +117,6 @@ const fullRestoreUser = async (userEmail) => {
     
     const updatedUser = await userDB.updatedUserAtribute(userEmail, dataName, newCharacterStats)
 
-    console.log("************ UPDATED USER ******************")
-    console.log(updatedUser)
-
     return updatedUser[0]
 }
 

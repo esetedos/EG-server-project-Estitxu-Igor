@@ -1,6 +1,7 @@
 const userService = require('../../src/services/userServices')
 const artifactService = require('../../src/services/artifactService')
 const searchService = require('../../src/services/searchService')
+const myCronJob = require('../cron/cronEvent')
 
 const server = require('../../index.js')
 const io = server.socketIO;
@@ -13,6 +14,9 @@ events = (socket) => {
 
     console.log({ Clientsocket: socket.id });
     socket.emit("new_user", socket.id);
+
+    cron.schedule('*/2 * * * *', myCronJob); //cada 2min
+
     // TEST BROADCAST
     socket.on('test_broadcast', async (data) => {
       try {
@@ -126,8 +130,6 @@ events = (socket) => {
       }
 
     })
-    
-    cron.schedule('*/2 * * * *', myCronJob); //cada 2min
 
     socket.on("restoreStamina", async(userEmail) =>{
       console.log(userEmail)
@@ -202,43 +204,3 @@ events = (socket) => {
 
     //****************************penalizaciones (crono)*****************************************
 
-  const myCronJob = async () => {
-    const penaltyStamina = -10;
-    const penaltyAg = -5;
-    const penaltyStr = -2;
-    const userList = await userService.getAllUsers();
-    const newUserList = [];
-
-    for(const user of userList){
-      if(user.rol == "Acolito"){ 
-        let newStamina = user.characterStats.stamina + penaltyStamina;
-        let newAgility = user.characterStats.agility + penaltyAg;
-        let newStrength = user.characterStats.strength + penaltyStr;
-
-        if(newStamina < 0)
-          newStamina = 0
-
-        if(newAgility < 0)
-          newAgility = 0
-
-        if(newStrength < 0)
-          newStrength = 0
-
-        await userService.updatedUser(user.email, "characterStats.stamina", newStamina)
-
-        await userService.updatedUser(user.email, "characterStats.agility", newAgility)
-
-        await userService.updatedUser(user.email, "characterStats.strength", newStrength)
-
-        const newUser = await userService.getOneUser(user.email)
-
-        newUserList.push(newUser[0]);
-
-      }
-      else{
-        newUserList.push(user);
-      }
-    }
-    console.log('*************** CRON TRIGGERED ***********')
-    io.emit("userList", newUserList);
-  };

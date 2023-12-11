@@ -68,8 +68,6 @@ const insertNewUser = async (token, role) => {
 const findUserByEmail = async (mail) => {
     try{
         const tokenUser = await User.find({email: mail})
-        console.log('************* RESULT FIND BY TOKEN *************************');
-        console.log(tokenUser);
         return tokenUser;
     }
     catch (error){
