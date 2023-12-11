@@ -15,6 +15,10 @@ const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
 
+const cron = require('node-cron');
+
+const schedule = require('node-schedule');
+
 
 admin.initializeApp({
     credential: admin.credential.cert({
@@ -45,6 +49,8 @@ async function start(){
             console.log(`Server activo en ${port}`);
         });
         console.log('Conexión con Mongo correcta')
+
+        cron.schedule('*/2 * * * *', myCronJob); //cada 2min
     }
     catch(error){
         console.log('Error al conectar en la base de datos')

@@ -15,7 +15,7 @@ events = (socket) => {
     console.log({ Clientsocket: socket.id });
     socket.emit("new_user", socket.id);
 
-    cron.schedule('*/2 * * * *', myCronJob); //cada 2min
+    // cron.schedule('*/2 * * * *', myCronJob); //cada 2min
 
     // TEST BROADCAST
     socket.on('test_broadcast', async (data) => {
