@@ -6,9 +6,6 @@ const myCronJob = require('../cron/cronEvent')
 const server = require('../../index.js')
 const io = server.socketIO;
 
-const cron = require('node-cron');
-
-const schedule = require('node-schedule');
 
 events = (socket) => {
 
@@ -113,6 +110,8 @@ events = (socket) => {
 
     socket.on("coords", async(data) =>{
       try{
+        console.log('*********** DATA RECEIVED **********')
+        console.log(data)
         const newUserList = []
         data.userArray.forEach(element => {
           if(element.name === data.name){
