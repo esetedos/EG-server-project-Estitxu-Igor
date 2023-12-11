@@ -137,17 +137,14 @@ events = (socket) => {
 
         for(const user of userList){
           if(user.email === userEmail){ 
-            let newStamina = user.characterStats.stamina + restoreStamina > 100? 100:user.characterStats.stamina + restoreStamina;
-            let newAgility = user.characterStats.agility + restoreAg ;
-            let newStrength = user.characterStats.strength + restoreStr > characterMaxStats.maxStrength? characterMaxStats.maxStrength: user.characterStats.strength + restoreStr;
+            const data = {
+              stamina: user.characterStats.stamina + restoreStamina > 100? 100:user.characterStats.stamina + restoreStamina,
+              agility: user.characterStats.agility + restoreAg > user.characterMaxStats.maxAgility? characterMaxStats.maxAgility: user.characterStats.agility + restoreAg,
+              strength: user.characterStats.strength + restoreStr > characterMaxStats.maxStrength? characterMaxStats.maxStrength: user.characterStats.strength + restoreStr,
+              intelligence: user.characterStats.intelligence
+            }
 
-
-            await userService.updatedUser(userEmail, "characterStats.stamina", newStamina);
-
-            await userService.updatedUser(userEmail, "characterStats.agility", newAgility);
-
-            const strength = await userService.updatedUser(userEmail, "characterStats.strength", newStrength);
-            console.log(strength)
+            await userService.updatedUser(userEmail, "characterStats", data);
 
             const newUser = await userService.getOneUser(user.email)
 
