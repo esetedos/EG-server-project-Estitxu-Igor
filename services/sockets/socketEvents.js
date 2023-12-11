@@ -122,7 +122,7 @@ events = (socket) => {
           
         });
         console.log('******************* COORDS RETURNING NEW USER LIST ************')
-        io.emit("userList", newUserList)
+        // io.emit("userList", newUserList)
       }
       catch(error){
         io.emit("error", error)
