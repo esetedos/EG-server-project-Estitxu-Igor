@@ -16,9 +16,9 @@ const app = express();
 const server = http.createServer(app);
 
 const cron = require('node-cron');
-
 const schedule = require('node-schedule');
 
+const myCronJob = require('./services/cron/cronEvent')
 
 admin.initializeApp({
     credential: admin.credential.cert({
