@@ -28,6 +28,8 @@ admin.initializeApp({
     }),
 })
 
+const userService = require('./src/services/userServices')
+
 const userRouter = require('./src/routes/userRoutes')
 const ingredientRouter = require('./src/routes/ingredientRoutes')
 const artifactRouter = require('./src/routes/artifactRoutes')
@@ -70,8 +72,6 @@ async function start(){
         
                 const newUser = await userService.updatedUser(user.email, "characterStats", newStats)
         
-                console.log()
-        
                 newUserList.push(newUser[0]);
         
               }
@@ -81,7 +81,7 @@ async function start(){
             }
             console.log('*************** CRON TRIGGERED ***********')
             io.emit("userList", newUserList);
-          }); //cada 2min
+          }); 
         cron.schedule('*/30 * * * * *', () => {
             console.log('Second cron triggered')
         });
