@@ -53,9 +53,6 @@ async function start(){
         console.log('Conexión con Mongo correcta')
 
         cron.schedule('*/30 * * * * *', myCronJob)
-        cron.schedule('*/30 * * * * *', () => {
-            console.log('Second cron triggered')
-        });
     }
     catch(error){
         console.log('Error al conectar en la base de datos')
