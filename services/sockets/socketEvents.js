@@ -26,9 +26,9 @@ events = (socket) => {
 
 
 
-    socket.on('disconnect', () => {
-      console.log('Client disconnected: ', socket.id);
-    });
+    socket.on('disconnect', function (reason) {
+      console.log('Socket disconnected because of ' + reason);
+  });
 
     //emit
     io.emit("hello", "world");
