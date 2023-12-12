@@ -27,7 +27,7 @@ events = (socket) => {
 
 
     socket.on('disconnect', function (reason) {
-      console.log('Socket disconnected because of ' + reason);
+      console.log('Socket disconnected because of ' + reason); 
   });
 
     //emit
