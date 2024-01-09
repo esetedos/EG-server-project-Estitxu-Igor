@@ -1,4 +1,4 @@
-const User = require('../database/User')
+const userDB = require('../database/User')
 
 const admin = require('firebase-admin')
 
@@ -6,7 +6,7 @@ const admin = require('firebase-admin')
 
 const getAllUsers = async() => {
     try{
-        const allUsers = User.getAllUsers();
+        const allUsers = userDB.getAllUsers();
         return allUsers;
     }
     catch{
@@ -22,7 +22,7 @@ const verifyUser = async (req) => {
     console.log('******************Decoded tokens mail*********************')
     console.log(decodedToken.email)
 
-    const tokenUser = await User.findUserByEmail(decodedToken.email)
+    const tokenUser = await userDB.findUserByEmail(decodedToken.email)
     let finalUser;
 
     console.log('*******************tokenUser prior to if***********************')
@@ -32,12 +32,12 @@ const verifyUser = async (req) => {
 
     if(!tokenUser[0]){
         const rol = checkRol(decodedToken.email)
-        // finalUser = await User.updateUser(decodedToken.email)
-        finalUser = await User.insertNewUser(decodedToken, rol)
+        // finalUser = await userDB.updateUser(decodedToken.email)
+        finalUser = await userDB.insertNewUser(decodedToken, rol)
     }
     else{
-        // finalUser = await User.insertNewUser(decodedToken)
-        finalUser = await User.updateUser(decodedToken.email)
+        // finalUser = await userDB.insertNewUser(decodedToken)
+        finalUser = await userDB.updateUser(decodedToken.email)
     }
 
     console.log('*********************FINAL USER******************')
@@ -46,7 +46,7 @@ const verifyUser = async (req) => {
 }
 
 const verifyQR = async (mail) => {
-    const userToValidateQR = await User.findUserByEmail(mail);
+    const userToValidateQR = await userDB.findUserByEmail(mail);
     console.log('*********** USER ON SERVICE AFTER FIND **************')
     console.log(userToValidateQR[0].towerAccess)
     let towerAccessState; 
@@ -58,7 +58,7 @@ const verifyQR = async (mail) => {
     }
     console.log('************* NEW TOWER ACCESS STATE**************')
     console.log(towerAccessState)
-    const finalUser = await User.updateQR(towerAccessState, mail)
+    const finalUser = await userDB.updateQR(towerAccessState, mail)
     console.log('******* RETURNED USER IN QR VALIDATION SERVICE *********************')
     console.log(finalUser)
     return finalUser;
@@ -92,8 +92,49 @@ const checkRol = (email) => {
     return rol;
 }
 
+const updatedUser = async (userEmail, dataName, value) => {
+
+    const finalUser = await userDB.updatedUserAtribute(userEmail, dataName, value)
+    return finalUser;    
+}
+
+const fullRestoreUser = async (userEmail) => {
+    const previousUser = await userDB.findUserByEmail(userEmail);
+    const dataName = "characterStats"
+
+    console.log(previousUser)
+
+    const maxStrength       = previousUser[0].characterMaxStats.maxStrength
+    const maxAgility        = previousUser[0].characterMaxStats.maxAgility
+    const maxIntelligence   = previousUser[0].characterMaxStats.maxIntelligence
+
+    const newCharacterStats = {
+        stamina: 100,
+        strength: maxStrength,
+        agility: maxAgility,
+        intelligence: maxIntelligence
+    }
+    
+    const updatedUser = await userDB.updatedUserAtribute(userEmail, dataName, newCharacterStats)
+
+    return updatedUser[0]
+}
+
+const getOneUser = async (email) => {
+    try{
+        const user = userDB.findUserByEmail(email);
+        return user;
+    }
+    catch (error){
+        throw error;
+    }
+}
+
 module.exports = {
     getAllUsers,
     verifyUser,
-    verifyQR
+    verifyQR,
+    updatedUser,
+    fullRestoreUser,
+    getOneUser,
 }

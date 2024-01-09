@@ -10,4 +10,12 @@ router.post("/", userController.verifyUser)
 
 router.post("/verifyQR", userController.verifyQR)
 
+<<<<<<< HEAD
+=======
+router.patch("/", userController.updateUser)
+
+router.get("/:name", userController.getOneUser)
+
+
+>>>>>>> staging
 module.exports = router;

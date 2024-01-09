@@ -13,6 +13,9 @@ const getAllUsers = async() => {
 const insertNewUser = async (token, role) => {
     try
     {
+        const strengthStart     = Math.floor(Math.random() * (100 - 73 + 1) + 73);
+        const agilityStart      = Math.floor(Math.random() * (100 - 24 + 1) + 24);
+        const inteligenceStart  = Math.floor(Math.random() * (100 - 20 + 1) + 20);
         
         console.log("***************insert new character*****************")
         console.log('**********photo URL*****************')
@@ -31,10 +34,15 @@ const insertNewUser = async (token, role) => {
             },
             characterStats: {
                 stamina: 100,
-                strength: 10,
-                resistance: 10,
-                agility: 10,
-                intelligence: 10 
+                strength: strengthStart,
+                agility: agilityStart,
+                intelligence: inteligenceStart 
+            },
+            characterMaxStats: {
+                maxStamina: 100,
+                maxStrength: strengthStart,
+                maxAgility: agilityStart,
+                maxIntelligence: inteligenceStart 
             },
             diseases: {
                 hunger: false,
@@ -44,7 +52,9 @@ const insertNewUser = async (token, role) => {
                 paralized: false,
                 psychosis: false
             },
-            imgURL : token.picture
+            imgURL : token.picture,
+            latitude: 0,
+            longitude: 0
         });
         await userToInsert.save();
         const userArray = [userToInsert]
@@ -58,8 +68,6 @@ const insertNewUser = async (token, role) => {
 const findUserByEmail = async (mail) => {
     try{
         const tokenUser = await User.find({email: mail})
-        console.log('************* RESULT FIND BY TOKEN *************************');
-        console.log(tokenUser);
         return tokenUser;
     }
     catch (error){
@@ -90,6 +98,30 @@ const updateQR = async (towerAccessState, mail) => {
     }
 }
 
+const updatedUserAtribute = async (userEmail, dataName, value) => {
+
+    try{
+
+
+        // if(dataName === "")
+        const updateObj = {};
+        updateObj[dataName] = value;
+
+        await User.updateOne({email: userEmail}, { $set: updateObj });
+        const updatedUser = await User.find({email: userEmail});
+        return updatedUser;
+
+
+          
+
+    }
+    catch (error){
+        throw error;
+    }
+}
+
+
+
 
 
 module.exports = {
@@ -99,4 +131,5 @@ module.exports = {
     insertNewUser,
     updateUser,
     updateQR,
+    updatedUserAtribute,
 }
