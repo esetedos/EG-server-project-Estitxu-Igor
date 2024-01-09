@@ -4,7 +4,7 @@ const router = express.Router()
 const userController = require('../controllers/userControllers')
 const { verifyQR } = require('../services/userServices')
 
-const  middleware = require(".../middlewares/middleware")
+const  middleware = require("../middlewares/middleware")
 
 router.get('/', userController.getAllUsers)
 
