@@ -1,3 +1,6 @@
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
+
 const verifyQR = async (req, res, next) => {
     const {body} = req;
     if(
@@ -40,7 +43,28 @@ const verifyUser = async (req, res, next) => {
 
 
 
-const JWTVerify = async (req, res, next) => {
-    const {header} = req;
-    
+
+
+const authenticateToken = (req, res, next) => {
+   const authHeader = req.headers['authorization']
+   const token = authHeader && authHeader.split(' ')[1]
+   if(!token) {
+       console.log("UNAUTHORIZED")
+       return res.sendStatus(401)
+   }
+
+   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, email) => {
+       if(error) {
+           console.log("FORBIDDEN")
+           console.log(error)
+           return res.sendStatus(403)
+       }
+
+       req.email = email
+       next()
+   })
 }
+
+
+
+module.exports = { verifyQR, verifyUser, authenticateToken };
