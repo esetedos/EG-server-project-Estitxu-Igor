@@ -4,11 +4,13 @@ const router = express.Router()
 const userController = require('../controllers/userControllers')
 const { verifyQR } = require('../services/userServices')
 
+const  middleware = require(".../middlewares/middleware")
+
 router.get('/', userController.getAllUsers)
 
-router.post("/", userController.verifyUser)
+router.post("/", middleware.verifyUser, userController.verifyUser)
 
-router.post("/verifyQR", userController.verifyQR)
+router.post("/verifyQR", middleware.verifyQR, userController.verifyQR)
 
 router.patch("/", userController.updateUser)
 

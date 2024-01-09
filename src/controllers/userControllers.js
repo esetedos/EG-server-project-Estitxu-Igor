@@ -22,19 +22,6 @@ const verifyUser = async (req, res) => {
     console.log('*********************RAW REQUEST**********************')
     console.log(req.body)
     const {body} = req;
-   
-    if(!body){
-         res
-            .status(400)
-            .send({
-                status: "FAILED",
-                data: {
-                    error:
-                    "error: token can't be empty",
-                },
-            });
-            return;
-    }
 
     try{
         
@@ -65,19 +52,8 @@ const verifyQR = async (req, res) => {
     console.log('***************** VERIFY QR ROUTE CALLED **********')
     const {body} = req;
     console.log(body)
-    if(!body){
-        res
-           .status(400)
-           .send({
-               status: "FAILED",
-               data: {
-                   error:
-                   "error: email can't be empty",
-               },
-           });
-           return;
-   }
-   try{
+    
+    try{
     const user = await User.verifyQR(body.email);
         if(!user){
             return res
