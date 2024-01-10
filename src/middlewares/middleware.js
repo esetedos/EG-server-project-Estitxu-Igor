@@ -65,6 +65,26 @@ const authenticateToken = (req, res, next) => {
    })
 }
 
+const veryfyEmail = async (req, res, next) => {
+    const {body} = req;
+    if(
+        !body.email
+    ) {
+        res
+        .status(400)
+        .send({
+            status: "FAILED",
+            data: {
+                error:
+                "error: token can't be empty",
+            },
+        });
+        return;
+    }
+
+    next();
+};
 
 
-module.exports = { verifyQR, verifyUser, authenticateToken };
+
+module.exports = { verifyQR, verifyUser, veryfyEmail, authenticateToken };

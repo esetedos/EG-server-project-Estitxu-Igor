@@ -1,4 +1,5 @@
 const User = require('../services/userServices')
+const Jwt = require('../JWT/generateJWT')
 
 const getAllUsers = async(req, res) => {
     try{
@@ -133,6 +134,30 @@ const getOneUser = async (req, res) => {
     }
 };
 
+const getEmailJWT = async (req, res) => {
+    const {body} = req;
+
+    try {
+        const jwToken = await Jwt.getOneUser(body.email);
+        if(!body.email){
+            return res .status(404)
+            .send({ status: "FAILED",
+                data: { error: `Cant find artifact with the email '${body.email}'`} });
+        }
+        res.send({
+            status: "OK",
+            data: jwToken
+        })
+    }
+    catch (error) {
+        res .status(error?.status || 500) 
+        .send({status: "FAILED",
+    message: "Error al realizar la petición:",
+        data: { error: error?.message || error}});
+    }
+};
+
+
 
 module.exports = {
     getAllUsers,
@@ -140,4 +165,5 @@ module.exports = {
     verifyQR,
     updateUser,
     getOneUser,
+    getEmailJWT
 }
