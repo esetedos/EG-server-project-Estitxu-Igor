@@ -16,7 +16,7 @@ router.patch("/", userController.updateUser)
 
 router.get("/:name", userController.getOneUser)
 
-router.post("/JWT", middleware.veryfyEmail, userController.getEmailJMT)
+router.post("/JWT", middleware.veryfyEmail, userController.getEmailJWT)
 
 
 module.exports = router;
