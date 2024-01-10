@@ -138,7 +138,13 @@ const getEmailJWT = async (req, res) => {
     const {body} = req;
 
     try {
-        const jwToken = await Jwt.getOneUser(body.email);
+        const jwAccessToken = Jwt.generateAccessToken(body.email);
+        const jwRefreshToken = Jwt.generateRefreshToken(body.email);
+
+        const jwToken = {
+            access: jwAccessToken,
+            refresh: jwRefreshToken
+        }
         if(!body.email){
             return res .status(404)
             .send({ status: "FAILED",
