@@ -61,6 +61,8 @@ const authenticateToken = (req, res, next) => {
            return res.sendStatus(403)
        }
 
+       else console.log('*************** ACCESS TOKEN VERIFIED ACCESS GRANTED ************************')
+
        req.email = email
        next()
    })
