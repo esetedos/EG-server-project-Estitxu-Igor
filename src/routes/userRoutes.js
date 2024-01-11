@@ -18,5 +18,7 @@ router.get("/:name", userController.getOneUser)
 
 router.post("/JWT", middleware.veryfyEmail, userController.getEmailJWT)
 
+router.post("/refresh", middleware.validateToken, userController.getEmailJWT)
+
 
 module.exports = router;

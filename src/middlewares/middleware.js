@@ -45,6 +45,7 @@ const verifyUser = async (req, res, next) => {
 
 
 
+
 const authenticateToken = (req, res, next) => {
    const authHeader = req.headers['authorization']
    const token = authHeader && authHeader.split(' ')[1]
@@ -85,6 +86,26 @@ const veryfyEmail = async (req, res, next) => {
     next();
 };
 
+const validateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    if(!token) {
+        console.log("UNAUTHORIZED")
+        return res.sendStatus(401)
+    }
+ 
+    jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (error, email) => {
+        if(error) {
+            console.log("FORBIDDEN")
+            console.log(error)
+            return res.sendStatus(403)
+        }
+ 
+        req.email = email
+        next()
+    })
+ }
 
 
-module.exports = { verifyQR, verifyUser, veryfyEmail, authenticateToken };
+
+module.exports = { verifyQR, verifyUser, veryfyEmail, authenticateToken, validateToken};
