@@ -6,7 +6,7 @@ const { verifyQR } = require('../services/userServices')
 
 const  middleware = require("../middlewares/middleware")
 
-router.get('/', userController.getAllUsers)
+router.get('/', middleware.authenticateToken, userController.getAllUsers)
 
 router.post("/", middleware.verifyUser, userController.verifyUser)
 
