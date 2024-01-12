@@ -58,7 +58,13 @@ const authenticateToken = (req, res, next) => {
        if(error) {
            console.log("FORBIDDEN")
            console.log(error)
-           return res.sendStatus(403)
+           return res          
+           .status(403)
+           .send({
+               data: {
+                   error: error
+               },
+           });
        }
 
        else console.log('*************** ACCESS TOKEN VERIFIED ACCESS GRANTED ************************')
