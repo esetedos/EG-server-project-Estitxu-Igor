@@ -108,7 +108,8 @@ const validateToken = (req, res, next) => {
             console.log(error)
             return res.sendStatus(403)
         }
- 
+        else console.log('*************** REFRESH TOKEN VERIFIED ACCESS GRANTED ************************')
+
         req.email = email
         next()
     })
