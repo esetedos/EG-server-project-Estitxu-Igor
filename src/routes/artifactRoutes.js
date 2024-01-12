@@ -3,7 +3,10 @@ const router = express.Router()
 
 const artifactController = require('../controllers/artifactControllers')
 
-router.get('/', artifactController.getAllArtifacts)
+const  middleware = require("../middlewares/middleware")
+
+
+router.get('/', middleware.authenticateToken, artifactController.getAllArtifacts)
 router.get("/:name", artifactController.getOneArtifact)
 router.patch("/", artifactController.updateArtifact)
 
