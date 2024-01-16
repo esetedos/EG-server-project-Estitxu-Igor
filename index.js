@@ -34,6 +34,8 @@ const userRouter = require('./src/routes/userRoutes')
 const ingredientRouter = require('./src/routes/ingredientRoutes')
 const artifactRouter = require('./src/routes/artifactRoutes')
 const searchRouter = require('./src/routes/searchRoutes')
+const objectRouter = require('./src/routes/objectRoutes')
+
 
 app.use(bodyParser.json());
 
@@ -41,6 +43,7 @@ app.use('/api/users', userRouter)
 app.use('/api/ingredients', ingredientRouter)
 app.use('/api/artifacts', artifactRouter)
 app.use('/api/search', searchRouter)
+app.use('/api/object', objectRouter)
 
 
 

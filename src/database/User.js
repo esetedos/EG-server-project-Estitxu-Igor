@@ -1,4 +1,5 @@
 const User = require('../models/userModel')
+const Object = require('../models/objectModel')
 
 const getAllUsers = async() => {
     try{
@@ -120,6 +121,21 @@ const updatedUserAtribute = async (userEmail, dataName, value) => {
     }
 }
 
+const updateUserObject = async (mail, idObject) => {
+    try{
+        const user = await User.find({email: mail})
+        const object = await Object.find({_id: idObject})
+
+        user.inventory.push(object)
+        await User.updateOne({email: mail}, { inventory: user.inventory });
+
+        return user;
+    }
+    catch (error){
+        throw error;
+    }
+}
+
 
 
 
@@ -132,4 +148,5 @@ module.exports = {
     updateUser,
     updateQR,
     updatedUserAtribute,
+    updateUserObject,
 }

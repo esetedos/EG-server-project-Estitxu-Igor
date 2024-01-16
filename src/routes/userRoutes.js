@@ -16,9 +16,11 @@ router.patch("/", userController.updateUser)
 
 router.get("/:name", middleware.authenticateToken, userController.getOneUser)
 
-router.post("/JWT", middleware.veryfyEmail, userController.getEmailJWT)
+router.post("/JWT", middleware.verifyEmail, userController.getEmailJWT)
 
 router.post("/refresh", middleware.validateToken, userController.getEmailJWT)
+
+router.post("/inventory", middleware.verifyEmail, middleware.verifyObject, userController.verifyObject)
 
 
 module.exports = router;

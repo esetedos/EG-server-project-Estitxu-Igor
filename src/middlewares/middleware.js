@@ -46,7 +46,7 @@ const verifyUser = async (req, res, next) => {
 
 
 
-const authenticateToken = (req, res, next) => {
+const authenticateToken = async (req, res, next) => {
    const authHeader = req.headers['authorization']
    const token = authHeader && authHeader.split(' ')[1]
    if(!token) {
@@ -74,7 +74,7 @@ const authenticateToken = (req, res, next) => {
    })
 }
 
-const veryfyEmail = async (req, res, next) => {
+const verifyEmail = async (req, res, next) => {
     const {body} = req;
     if(
         !body.email
@@ -94,7 +94,7 @@ const veryfyEmail = async (req, res, next) => {
     next();
 };
 
-const validateToken = (req, res, next) => {
+const validateToken = async (req, res, next) => {
     console.log("ENTERS REFRESH MIDDLEWARE")
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
@@ -116,6 +116,23 @@ const validateToken = (req, res, next) => {
     })
  }
 
+ const verifyObject = async (req, res, next) => {
+    const {body} = req;
+    if(
+        !body.idObject
+    ) {
+        res
+        .status(400)
+        .send({
+            status: "FAILED",
+            data: {
+                error:
+                "error: token can't be empty",
+            },
+        });
+        return;
+    }
 
-
-module.exports = { verifyQR, verifyUser, veryfyEmail, authenticateToken, validateToken};
+    next();
+};
+module.exports = { verifyQR, verifyUser, verifyEmail, authenticateToken, validateToken, verifyObject};
