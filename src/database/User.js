@@ -124,9 +124,8 @@ const updatedUserAtribute = async (userEmail, dataName, value) => {
 const updateUserObject = async (mail, idObject) => {
     try{
         const user = await User.find({email: mail})
-        const object = await Object.find({_id: idObject})
-
-        user.inventory.push(object)
+        // const object = await Object.find({id: idObject})
+        user[0].inventory.push(idObject)
         await User.updateOne({email: mail}, { inventory: user.inventory });
 
         return user;
