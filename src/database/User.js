@@ -135,6 +135,26 @@ const updateUserObject = async (mail, idObject) => {
     }
 }
 
+const emptyInventory = async () => {
+    try{
+        const userList = await User.find()
+
+        const newUserList = userList.map(async user => {
+
+            await User.updateOne({email: user.email}, { inventory: []});
+            const newUser = await User.find({email: user.email});
+            return newUser;
+
+        })
+
+        return newUserList;
+    }
+    catch (error){
+        throw error;
+    }
+}
+
+
 
 
 
@@ -148,4 +168,5 @@ module.exports = {
     updateQR,
     updatedUserAtribute,
     updateUserObject,
+    emptyInventory,
 }

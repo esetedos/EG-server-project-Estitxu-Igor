@@ -184,13 +184,12 @@ events = (socket) => {
 
 
     socket.on("objectRetrieval", async(data) => {
-      
+
       const updatedUser = await userService.verifyObject(data.email, data.mensaje)
       console.log('*********************user updated *********************')
       console.log(updatedUser)
 
-      const updatedObject = await objectService.openRetrieval();
-
+      const updatedObject = await objectService.openRetrieval(data.mensaje);
 
       const newUserList = await userService.getAllUsers();
 
@@ -199,12 +198,22 @@ events = (socket) => {
       io.emit("userList", newUserList);
       io.emit("objectList", newObjectList);
 
+    })
 
+    socket.on("closeRip", async(data) => {
+      const newObjectList = await objectService.closeRetrievals();
+      const newUserList = await userService.emptyInventory();
+
+      io.emit("userList", newUserList);
+      io.emit("objectList", newObjectList);
 
     })
 
 
+
+
   }
+
 
   exports.socketEvents = events;
 

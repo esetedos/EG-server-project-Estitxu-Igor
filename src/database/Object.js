@@ -24,6 +24,23 @@ const openRetrieval = async(idObject) => {
     }
 }
 
+const closeRetrievals = async() => {
+    try{
+        const allObject = await Object.find();
+        
+        const newObjectList = allObject.map(async object => {
+                                await Object.updateOne({id: object.id}, { retrieved: false});
+                                const newObject = await Object.findOne({id: object.id});
+                                return newObject
+                            })
+
+        return newObjectList;
+    }
+    catch(error){
+        throw error;
+    }
+}
+
 
 
 
@@ -31,5 +48,5 @@ const openRetrieval = async(idObject) => {
 module.exports = {
     getAllObjects,
     openRetrieval,
-
+    closeRetrievals,
 }

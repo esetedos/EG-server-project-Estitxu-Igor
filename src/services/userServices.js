@@ -140,6 +140,16 @@ const verifyObject = async (email, idObject) => {
     }
 }
 
+const emptyInventory = async () => {
+    try{
+        const user = userDB.emptyInventory();
+        return user;
+    }
+    catch (error){
+        throw error;
+    }
+}
+
 module.exports = {
     getAllUsers,
     verifyUser,
@@ -147,5 +157,6 @@ module.exports = {
     updatedUser,
     fullRestoreUser,
     getOneUser,
-    verifyObject
+    verifyObject,
+    emptyInventory,
 }

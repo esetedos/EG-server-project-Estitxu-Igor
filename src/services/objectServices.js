@@ -24,9 +24,20 @@ const openRetrieval = async(idObject) => {
     }
 }
 
+const closeRetrievals = async() => {
+    try{
+        const object = objectBD.closeRetrievals();
+        return object;
+    }
+    catch{
+        throw error;
+    }
+}
+
 
 
 module.exports = {
     getAllObjects,
     openRetrieval,
+    closeRetrievals,
 }
