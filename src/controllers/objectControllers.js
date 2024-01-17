@@ -15,7 +15,25 @@ const getAllObjects = async(req, res) => {
     }
 }
 
+const openRetrieval = async(req, res) => {
+    const {body} = req;
+    console.log(body)
+
+    try{
+        const object = await Object.openRetrieval(body.idObject);
+        res.send({status: "OK", data: object})
+    }
+    catch(error){
+        res
+            .status(error?.status || 500)
+            .send({ status: 'FAILED',
+                    message: 'Error al realizar el post:',
+                    data: {error: error?.message || error} });
+    }
+}
+
 
 module.exports = {
     getAllObjects,
+    openRetrieval,
 }

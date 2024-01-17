@@ -10,11 +10,26 @@ const getAllObjects = async() => {
     }
 }
 
+const openRetrieval = async(idObject) => {
+    try{
+
+        await Object.updateOne({id: idObject}, { retrieved: true});
+
+        const object = await Object.find({id: idObject})
+
+        return object;
+    }
+    catch(error){
+        throw error;
+    }
+}
+
 
 
 
 
 module.exports = {
     getAllObjects,
+    openRetrieval,
 
 }

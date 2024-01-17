@@ -7,6 +7,6 @@ const  middleware = require("../middlewares/middleware")
 
 router.get('/', middleware.authenticateToken, objectController.getAllObjects)
 
-
+router.post('/opened', middleware.verifyObject, objectController.openRetrieval)
 
 module.exports = router;

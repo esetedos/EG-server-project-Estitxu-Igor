@@ -182,6 +182,17 @@ events = (socket) => {
     })
 
 
+    socket.on("objectRetrieval", async(userEmail) => {
+      
+      const updatedUser = await userService.fullRestoreUser(userEmail)
+      console.log('*********************user recovery updated user *********************')
+      console.log(updatedUser)
+      io.emit("userRecovery", updatedUser)
+      const newUserList = await userService.getAllUsers();
+      io.emit("userList", newUserList);
+    })
+
+
   }
 
   exports.socketEvents = events;
