@@ -1,6 +1,7 @@
 const userService = require('../../src/services/userServices')
 const artifactService = require('../../src/services/artifactService')
 const searchService = require('../../src/services/searchService')
+const objectService = require('../../src/services/objectServices')
 
 
 const server = require('../../index.js')
@@ -182,14 +183,24 @@ events = (socket) => {
     })
 
 
-    socket.on("objectRetrieval", async(userEmail) => {
+    socket.on("objectRetrieval", async(data) => {
       
-      const updatedUser = await userService.fullRestoreUser(userEmail)
-      console.log('*********************user recovery updated user *********************')
+      const updatedUser = await userService.verifyObject(data.email, data.mensaje)
+      console.log('*********************user updated *********************')
       console.log(updatedUser)
-      io.emit("userRecovery", updatedUser)
+
+      const updatedObject = await objectService.openRetrieval();
+
+
       const newUserList = await userService.getAllUsers();
+
+      const newObjectList = await objectService.getAllObjects();
+
       io.emit("userList", newUserList);
+      io.emit("objectList", newObjectList);
+
+
+
     })
 
 
