@@ -129,8 +129,8 @@ const updateUserObject = async (mail, idObject) => {
         user[0].inventory.push(idObject)
         console.log("************updated user*************")
         console.log(user)
-        await User.updateOne({email: mail}, { inventory: user.inventory });
-
+        await User.updateOne({email: mail}, { inventory: user[0].inventory });
+        
         return user;
     }
     catch (error){
