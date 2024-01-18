@@ -184,7 +184,7 @@ events = (socket) => {
 
 
     socket.on("objectRetrieval", async(data) => {
-
+      console.log("*****************objectRetrieval*********************+")
       const updatedUser = await userService.verifyObject(data.email, data.mensaje)
       console.log('*********************user updated *********************')
       console.log(updatedUser)
@@ -197,7 +197,7 @@ events = (socket) => {
 
       io.emit("userList", newUserList);
       io.emit("objectList", newObjectList);
-
+      console.log(newObjectList)
     })
 
     socket.on("closeRip", async(data) => {

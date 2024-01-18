@@ -132,6 +132,8 @@ const getOneUser = async (email) => {
 
 const verifyObject = async (email, idObject) => {
     try{
+        console.log("******sended info*******")
+        console.log("email: " + email + "  y id " + idObject)
         const user = userDB.updateUserObject(email, idObject);
         return user;
     }

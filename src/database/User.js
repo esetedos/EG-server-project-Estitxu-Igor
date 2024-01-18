@@ -125,7 +125,10 @@ const updateUserObject = async (mail, idObject) => {
     try{
         const user = await User.find({email: mail})
         // const object = await Object.find({id: idObject})
+        console.log("***************finded user**************")
         user[0].inventory.push(idObject)
+        console.log("************updated user*************")
+        console.log(user)
         await User.updateOne({email: mail}, { inventory: user.inventory });
 
         return user;
