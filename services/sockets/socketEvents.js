@@ -190,7 +190,7 @@ events = (socket) => {
       console.log('*********************user updated *********************')
       console.log(updatedUser)
 
-      const updatedObject = await objectService.openRetrieval(data.mensaje);
+      const updatedObject = await objectService.openRetrieval(data.num);
 
       const newUserList = await userService.getAllUsers();
 
