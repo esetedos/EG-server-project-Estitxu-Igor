@@ -26,13 +26,18 @@ const openRetrieval = async(idObject) => {
 
 const closeRetrievals = async() => {
     try{
+
         const allObject = await Object.find();
+        console.log("****************************")
         
-        const newObjectList = allObject.map(async object => {
-                                await Object.updateOne({id: object.id}, { retrieved: false});
-                                const newObject = await Object.findOne({id: object.id});
-                                return newObject
-                            })
+
+        allObject.forEach( async object => {
+            await Object.updateOne({id: object.id}, { retrieved: false});
+
+        })
+        const newObjectList = await Object.find();
+
+    
 
         return newObjectList;
     }
