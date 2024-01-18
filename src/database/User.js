@@ -141,15 +141,19 @@ const updateUserObject = async (mail, idObject) => {
 const emptyInventory = async () => {
     try{
         const userList = await User.find()
+        console.log("****************************")
+        
 
-        const newUserList = userList.map(async user => {
-
+        userList.forEach( async user => {
             await User.updateOne({email: user.email}, { inventory: []});
-            const newUser = await User.find({email: user.email});
-            return newUser;
+            // await User.find({email: user.email});
+            console.log(user)
+            console.log("****************************")
 
         })
+        const newUserList = await User.find()
 
+        console.log(newUserList)
         return newUserList;
     }
     catch (error){

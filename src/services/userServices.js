@@ -143,8 +143,12 @@ const verifyObject = async (email, idObject) => {
 }
 
 const emptyInventory = async () => {
+    console.log("****************************")
+   
     try{
         const user = userDB.emptyInventory();
+        console.log(user)
+
         return user;
     }
     catch (error){

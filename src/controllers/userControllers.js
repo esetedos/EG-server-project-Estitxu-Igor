@@ -190,6 +190,32 @@ const verifyObject = async (req, res) => {
 
 }
 
+const emptyInventory = async (req, res) => {
+    console.log('***************** VERIFY QR ROUTE CALLED **********')
+    
+    
+    try{
+    const users = await User.emptyInventory();
+        if(!users){
+            return res
+                .status(201).send({
+                    status: 'FAILED',
+                    data: {error: `User not found`}
+                })
+        }
+        else
+            res.status(201).send({ status: "OK", data: users });
+    }
+    catch(error){
+        res
+            .status(error?.status || 500)
+            .send({ status: 'FAILED',
+                    message: 'Error al realizar la petición:',
+                    data: {error: error?.message || error} });
+    }
+
+}
+
 
 
 module.exports = {
@@ -199,5 +225,6 @@ module.exports = {
     updateUser,
     getOneUser,
     getEmailJWT,
-    verifyObject
+    verifyObject,
+    emptyInventory,
 }
