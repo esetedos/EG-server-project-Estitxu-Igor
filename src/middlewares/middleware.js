@@ -47,31 +47,39 @@ const verifyUser = async (req, res, next) => {
 
 
 const authenticateToken = async (req, res, next) => {
+    const {body} = req;
    const authHeader = req.headers['authorization']
    const token = authHeader && authHeader.split(' ')[1]
-   if(!token) {
-       console.log("UNAUTHORIZED")
-       return res.sendStatus(401)
+
+   if(body.email == "guest"){
+        next();
    }
-
-   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, email) => {
-       if(error) {
-           console.log("FORBIDDEN")
-           console.log(error)
-           return res          
-           .status(403)
-           .send({
-               data: {
-                   error: error
-               },
-           });
-       }
-
-       else console.log('*************** ACCESS TOKEN VERIFIED ACCESS GRANTED ************************')
-
-       req.email = email
-       next()
-   })
+    else{
+        if(!token) {
+            console.log("UNAUTHORIZED")
+            return res.sendStatus(401)
+        }
+    
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, email) => {
+            if(error) {
+                console.log("FORBIDDEN")
+                console.log(error)
+                return res          
+                .status(403)
+                .send({
+                    data: {
+                        error: error
+                    },
+                });
+            }
+    
+            else console.log('*************** ACCESS TOKEN VERIFIED ACCESS GRANTED ************************')
+    
+            req.email = email
+            next()
+        })
+   }
+   
 }
 
 const verifyEmail = async (req, res, next) => {
