@@ -47,12 +47,10 @@ const insertNewUser = async (token, role) => {
                 maxIntelligence: inteligenceStart 
             },
             diseases: {
-                hunger: false,
-                blindness: false,
-                madness: false,
-                fear: false,
-                paralized: false,
-                psychosis: false
+                rotting_plague: false,
+                epic_weakness: false,
+                marrow_apocalypse: false,
+                ethazium: false
             },
             imgURL : token.picture,
             latitude: 0,
