@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 
+
 const getAllUsers = async() => {
     try{
         const allUsers = await User.find();
@@ -113,7 +114,7 @@ const updatedUserAtribute = async (userEmail, dataName, value) => {
 
 
           
-
+ 
     }
     catch (error){
         throw error;
@@ -121,6 +122,16 @@ const updatedUserAtribute = async (userEmail, dataName, value) => {
 }
 
 
+const updateUserIllness = async (userEmail, dataName, value) => {
+    try{
+        const attribute = `diseases.${dataName}`
+        const updatedUser = await User.updateOne({email: userEmail}, {attribute: value })
+        return updatedUser;
+    }
+    catch (error){
+        throw error;
+    }
+}
 
 
 
@@ -132,4 +143,5 @@ module.exports = {
     updateUser,
     updateQR,
     updatedUserAtribute,
+    updateUserIllness
 }
