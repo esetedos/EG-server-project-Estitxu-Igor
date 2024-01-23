@@ -1,7 +1,7 @@
 const userService = require('../../src/services/userServices')
 const artifactService = require('../../src/services/artifactService')
 const searchService = require('../../src/services/searchService')
-const objectService = require('../../src/services/objectServices')
+const affectionService = require('../../src/services/affectionService')
 
 
 const server = require('../../index.js')
@@ -182,6 +182,12 @@ events = (socket) => {
       io.emit("userList", newUserList);
     })
 
+    socket.on("sickUser", async(userEmail, sicknessID) => {
+      const affectedUser = await userService.getOneUser(userEmail);
+      const illness = await affectionService.findAffectionByID(sicknessID)
+      
+      
+    })
 
     socket.on("objectRetrieval", async(data) => {
       console.log("*****************objectRetrieval*********************+")
@@ -202,9 +208,6 @@ events = (socket) => {
     })
 
 
-
-
-
     socket.on("closeRip", async(data) => {
       const newObjectList = await objectService.closeRetrievals();
       const newUserList = await userService.emptyInventory();
@@ -216,10 +219,9 @@ events = (socket) => {
 
 
 
-
   }
 
-
+ 
   exports.socketEvents = events;
 
 
