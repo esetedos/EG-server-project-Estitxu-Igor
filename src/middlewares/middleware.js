@@ -54,10 +54,10 @@ const authenticateToken = async (req, res, next) => {
 
 console.log(token)
     console.log()
-   if(!token){
-        next();
-   }
-    else{
+//    if(!token){
+//         next();
+//    }
+    // else{
         if(!token) {
             console.log("UNAUTHORIZED")
             return res.sendStatus(401)
@@ -65,15 +65,18 @@ console.log(token)
     
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, email) => {
             if(error) {
-                console.log("FORBIDDEN")
-                console.log(error)
-                return res          
-                .status(403)
-                .send({
-                    data: {
-                        error: error
-                    },
-                });
+                if(email){
+                    console.log("FORBIDDEN")
+                    console.log(error)
+                    return res          
+                    .status(403)
+                    .send({
+                        data: {
+                            error: error
+                        },
+                    });
+    
+                }
             }
     
             else console.log('*************** ACCESS TOKEN VERIFIED ACCESS GRANTED ************************')
@@ -83,7 +86,7 @@ console.log(token)
         })
    }
    
-}
+// }
 
 const verifyEmail = async (req, res, next) => {
     const {body} = req;
