@@ -1,11 +1,8 @@
 const userService = require('../../src/services/userServices')
 const artifactService = require('../../src/services/artifactService')
 const searchService = require('../../src/services/searchService')
-<<<<<<< HEAD
-const affectionService = require('../')
-=======
 const affectionService = require('../../src/services/affectionService')
->>>>>>> 54fc2b8
+
 
 
 const server = require('../../index.js')
