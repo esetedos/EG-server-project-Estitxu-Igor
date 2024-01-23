@@ -181,9 +181,13 @@ events = (socket) => {
       io.emit("userList", newUserList);
     })
 
+    socket.on("sickUser", async(userEmail, sicknessName) => {
+      
+    })
 
   }
 
+ 
   exports.socketEvents = events;
 
 
