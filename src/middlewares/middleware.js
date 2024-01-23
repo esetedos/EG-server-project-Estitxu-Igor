@@ -50,11 +50,11 @@ const authenticateToken = async (req, res, next) => {
     const {body} = req;
    const authHeader = req.headers['authorization']
    const token = authHeader && authHeader.split(' ')[1]
-   console.log("************************body.email************************")
+   console.log("************************token************************")
 
-console.log(body)
-    console.log(body.email)
-   if(body.email === "guest"){
+console.log(token)
+    console.log()
+   if(!token){
         next();
    }
     else{
