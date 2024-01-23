@@ -1,7 +1,7 @@
 const userService = require('../../src/services/userServices')
 const artifactService = require('../../src/services/artifactService')
 const searchService = require('../../src/services/searchService')
-const affectionService = require('../../src/services/affectionService')
+// const affectionService = require('../../src/services/')
 
 
 
@@ -185,7 +185,7 @@ events = (socket) => {
 
     socket.on("sickUser", async(userEmail, sicknessID) => {
       const affectedUser = await userService.getOneUser(userEmail);
-      const illness = await affectionService.findAffectionByID(sicknessID)
+      // const illness = await affectionService.findAffectionByID(sicknessID)
       
       
     })
