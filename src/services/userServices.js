@@ -130,6 +130,32 @@ const getOneUser = async (email) => {
     }
 }
 
+const verifyObject = async (email, idObject) => {
+    try{
+        console.log("******sended info*******")
+        console.log("email: " + email + "  y id " + idObject)
+        const user = userDB.updateUserObject(email, idObject);
+        return user;
+    }
+    catch (error){
+        throw error;
+    }
+}
+
+const emptyInventory = async () => {
+    console.log("****************************")
+   
+    try{
+        const user = userDB.emptyInventory();
+        console.log(user)
+
+        return user;
+    }
+    catch (error){
+        throw error;
+    }
+}
+
 module.exports = {
     getAllUsers,
     verifyUser,
@@ -137,4 +163,6 @@ module.exports = {
     updatedUser,
     fullRestoreUser,
     getOneUser,
+    verifyObject,
+    emptyInventory,
 }

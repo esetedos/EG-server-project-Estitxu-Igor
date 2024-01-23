@@ -15,7 +15,8 @@ const userSchema = new Schema({
     diseases: Object,
     imgURL: String,
     latitude: Number,
-    longitude: Number
+    longitude: Number,
+    inventory: Array,
 
 })
 

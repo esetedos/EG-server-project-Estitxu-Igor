@@ -1,7 +1,11 @@
 const userService = require('../../src/services/userServices')
 const artifactService = require('../../src/services/artifactService')
 const searchService = require('../../src/services/searchService')
+<<<<<<< HEAD
 const affectionService = require('../')
+=======
+const affectionService = require('../../src/services/affectionService')
+>>>>>>> 54fc2b8
 
 
 const server = require('../../index.js')
@@ -184,7 +188,40 @@ events = (socket) => {
 
     socket.on("sickUser", async(userEmail, sicknessID) => {
       const affectedUser = await userService.getOneUser(userEmail);
+      const illness = await affectionService.findAffectionByID(sicknessID)
+      
+      
     })
+
+    socket.on("objectRetrieval", async(data) => {
+      console.log("*****************objectRetrieval*********************+")
+      console.log(data)
+      const updatedUser = await userService.verifyObject(data.email, data.num)
+      console.log('*********************user updated *********************')
+      console.log(updatedUser)
+
+      const updatedObject = await objectService.openRetrieval(data.num);
+
+      const newUserList = await userService.getAllUsers();
+
+      const newObjectList = await objectService.getAllObjects();
+
+      io.emit("userList", newUserList);
+      io.emit("objectList", newObjectList);
+      console.log(newObjectList)
+    })
+
+
+    socket.on("closeRip", async(data) => {
+      const newObjectList = await objectService.closeRetrievals();
+      const newUserList = await userService.emptyInventory();
+
+      io.emit("userList", newUserList);
+      io.emit("objectList", newObjectList);
+
+    })
+
+
 
   }
 

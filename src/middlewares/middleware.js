@@ -46,35 +46,49 @@ const verifyUser = async (req, res, next) => {
 
 
 
-const authenticateToken = (req, res, next) => {
+const authenticateToken = async (req, res, next) => {
+    const {body} = req;
    const authHeader = req.headers['authorization']
    const token = authHeader && authHeader.split(' ')[1]
-   if(!token) {
-       console.log("UNAUTHORIZED")
-       return res.sendStatus(401)
+   console.log("************************token************************")
+
+console.log(token)
+    console.log()
+//    if(!token){
+//         next();
+//    }
+    // else{
+        if(!token) {
+            console.log("UNAUTHORIZED")
+            return res.sendStatus(401)
+        }
+    
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, email) => {
+            if(error) {
+                if(email){
+                    console.log("FORBIDDEN")
+                    console.log(error)
+                    return res          
+                    .status(403)
+                    .send({
+                        data: {
+                            error: error
+                        },
+                    });
+    
+                }
+            }
+    
+            else console.log('*************** ACCESS TOKEN VERIFIED ACCESS GRANTED ************************')
+    
+            req.email = email
+            next()
+        })
    }
+   
+// }
 
-   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, email) => {
-       if(error) {
-           console.log("FORBIDDEN")
-           console.log(error)
-           return res          
-           .status(403)
-           .send({
-               data: {
-                   error: error
-               },
-           });
-       }
-
-       else console.log('*************** ACCESS TOKEN VERIFIED ACCESS GRANTED ************************')
-
-       req.email = email
-       next()
-   })
-}
-
-const veryfyEmail = async (req, res, next) => {
+const verifyEmail = async (req, res, next) => {
     const {body} = req;
     if(
         !body.email
@@ -94,7 +108,8 @@ const veryfyEmail = async (req, res, next) => {
     next();
 };
 
-const validateToken = (req, res, next) => {
+const validateToken = async (req, res, next) => {
+    console.log("ENTERS REFRESH MIDDLEWARE")
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
     if(!token) {
@@ -115,6 +130,23 @@ const validateToken = (req, res, next) => {
     })
  }
 
+ const verifyObject = async (req, res, next) => {
+    const {body} = req;
+    if(
+        !body.idObject
+    ) {
+        res
+        .status(400)
+        .send({
+            status: "FAILED",
+            data: {
+                error:
+                "error: token can't be empty",
+            },
+        });
+        return;
+    }
 
-
-module.exports = { verifyQR, verifyUser, veryfyEmail, authenticateToken, validateToken};
+    next();
+};
+module.exports = { verifyQR, verifyUser, verifyEmail, authenticateToken, validateToken, verifyObject};

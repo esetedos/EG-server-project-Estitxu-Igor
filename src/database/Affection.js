@@ -22,5 +22,6 @@ const findAffectionByID = async (id) => {
 
 module.exports = {
     getAllAffections,
-    findAffectionByID
+    findAffectionByID,
+    getAllAffections
 }

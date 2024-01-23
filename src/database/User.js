@@ -1,4 +1,5 @@
 const User = require('../models/userModel')
+const Object = require('../models/objectModel')
 
 
 const getAllUsers = async() => {
@@ -121,6 +122,47 @@ const updatedUserAtribute = async (userEmail, dataName, value) => {
     }
 }
 
+const updateUserObject = async (mail, idObject) => {
+    try{
+        const user = await User.find({email: mail})
+        // const object = await Object.find({id: idObject})
+        console.log("***************finded user**************")
+        user[0].inventory.push(idObject)
+        console.log("************updated user*************")
+        console.log(user)
+        await User.updateOne({email: mail}, { inventory: user[0].inventory });
+        
+        return user;
+    }
+    catch (error){
+        throw error;
+    }
+}
+
+const emptyInventory = async () => {
+    try{
+        const userList = await User.find()
+        console.log("****************************")
+        
+
+        userList.forEach( async user => {
+            await User.updateOne({email: user.email}, { inventory: []});
+            // await User.find({email: user.email});
+            console.log(user)
+            console.log("****************************")
+
+        })
+        const newUserList = await User.find()
+
+        console.log(newUserList)
+        return newUserList;
+    }
+    catch (error){
+        throw error;
+    }
+}
+
+
 
 const updateUserIllness = async (userEmail, dataName, value) => {
     try{
@@ -143,5 +185,7 @@ module.exports = {
     updateUser,
     updateQR,
     updatedUserAtribute,
-    updateUserIllness
+    updateUserIllness,
+    updateUserObject,
+    emptyInventory,
 }

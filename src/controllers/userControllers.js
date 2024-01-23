@@ -163,6 +163,59 @@ const getEmailJWT = async (req, res) => {
     }
 };
 
+const verifyObject = async (req, res) => {
+    console.log('***************** VERIFY QR ROUTE CALLED **********')
+    const {body} = req;
+    console.log(body)
+    
+    try{
+    const user = await User.verifyObject(body.email, body.idObject);
+        if(!user){
+            return res
+                .status(201).send({
+                    status: 'FAILED',
+                    data: {error: `User not found`}
+                })
+        }
+        else
+            res.status(201).send({ status: "OK", data: user });
+    }
+    catch(error){
+        res
+            .status(error?.status || 500)
+            .send({ status: 'FAILED',
+                    message: 'Error al realizar la petición:',
+                    data: {error: error?.message || error} });
+    }
+
+}
+
+const emptyInventory = async (req, res) => {
+    console.log('***************** VERIFY QR ROUTE CALLED **********')
+    
+    
+    try{
+    const users = await User.emptyInventory();
+        if(!users){
+            return res
+                .status(201).send({
+                    status: 'FAILED',
+                    data: {error: `User not found`}
+                })
+        }
+        else
+            res.status(201).send({ status: "OK", data: users });
+    }
+    catch(error){
+        res
+            .status(error?.status || 500)
+            .send({ status: 'FAILED',
+                    message: 'Error al realizar la petición:',
+                    data: {error: error?.message || error} });
+    }
+
+}
+
 
 
 module.exports = {
@@ -171,5 +224,7 @@ module.exports = {
     verifyQR,
     updateUser,
     getOneUser,
-    getEmailJWT
+    getEmailJWT,
+    verifyObject,
+    emptyInventory,
 }
