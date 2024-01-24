@@ -183,9 +183,10 @@ events = (socket) => {
       io.emit("userList", newUserList);
     })
 
-    socket.on("sickUser", async(userEmail, sicknessID) => {
-      const affectedUser = await userService.getOneUser(userEmail);
-      // const illness = await affectionService.findAffectionByID(sicknessID)
+    socket.on("sickUser", async(data) => {
+      const affectedUser = await userService.getOneUser(data.email);
+      // const illness = await affectionService.findAffectionByID(data.diseaseId)
+
       
       
     })
