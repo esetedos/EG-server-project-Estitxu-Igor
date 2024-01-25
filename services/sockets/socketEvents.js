@@ -185,9 +185,9 @@ events = (socket) => {
 
     socket.on("sickUser", async(data) => {
       console.log
-      const affectedUser = await userService.getOneUser(userEmail);
+      const affectedUser = await userService.getOneUser(data.email);
       const disease = `diseases.${data.diseaseId}`
-      const illness = await userService.updatedUser(data.userEmail, disease, data.value)
+      const illness = await userService.updatedUser(data.email, disease, data.apply)
       const allUsers = await userService.getAllUsers()
 
       io.emit("userList", allUsers)
