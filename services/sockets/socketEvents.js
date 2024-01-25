@@ -2,7 +2,7 @@ const userService = require('../../src/services/userServices')
 const artifactService = require('../../src/services/artifactService')
 const searchService = require('../../src/services/searchService')
 // const affectionService = require('../../src/services/')
-
+const objectService = require('../../src/services/objectServices.js')
 
 
 const server = require('../../index.js')
