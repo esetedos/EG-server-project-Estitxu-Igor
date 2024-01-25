@@ -8,8 +8,8 @@ const affectionSchema = new Schema({
     name: String,
     image: String,
     damage_attribute: String,
-    damage_percentage: Number,
+    damage_percentage: String,
     healing_effects: Array
 })
 
-module.exports = mongoose.model('search', affectionSchema);
+module.exports = mongoose.model('Affection', affectionSchema);

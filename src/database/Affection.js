@@ -6,6 +6,7 @@ const getAllAffections = async() => {
         return allAffections;
     }
     catch(error){
+        console.log("done") 
         throw error;
     }
 }
@@ -23,5 +24,5 @@ const findAffectionByID = async (id) => {
 module.exports = {
     getAllAffections,
     findAffectionByID,
-    getAllAffections
+    
 }
