@@ -5,7 +5,7 @@ const affectController = require('../controllers/affectControllers')
 
 const  middleware = require("../middlewares/middleware")
 
-router.get('/',  middleware.verifyEmail, affectController.getAllAffects);
+router.get('/', affectController.getAllAffects);
 
 
 module.exports = router; 
