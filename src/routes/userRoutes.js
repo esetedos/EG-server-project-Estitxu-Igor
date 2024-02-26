@@ -10,7 +10,7 @@ router.get('/', middleware.authenticateToken, userController.getAllUsers)
 
 router.post("/", middleware.verifyUser, userController.verifyUser)
 
-router.post("/verifyQR", middleware.verifyQR, userController.verifyQR)
+router.post("/verifyQR", userController.verifyQR)
 
 router.patch("/", userController.updateUser)
 
