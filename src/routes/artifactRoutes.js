@@ -6,7 +6,7 @@ const artifactController = require('../controllers/artifactControllers')
 const  middleware = require("../middlewares/middleware")
 
 
-router.get('/', middleware.authenticateToken, artifactController.getAllArtifacts)
+router.get('/', artifactController.getAllArtifacts)
 router.get("/:name", artifactController.getOneArtifact)
 router.patch("/", artifactController.updateArtifact)
 
